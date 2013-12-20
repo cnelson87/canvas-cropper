@@ -1,21 +1,31 @@
 
-var CanvasCropper = function($canvas, objOptions){
+var CanvasCropper = function($el, objOptions){
 
-	this.$canvas = $canvas;
-	this.canvas = $canvas[0];
+	this.$el = $el;
 
 	this.options = $.extend({
-		selectorExportBtn: '#btn-export',
-		selectorExportImg: '#img-export',
+		selectorExportBtn: '.canvas-filters .btn-export',
+		selectorExportImg: '.canvas-export img',
+		selectorFilters: '.canvas-filters input[type=radio]',
+		selectorCanvas: '.canvas-holder canvas',
 		fillStyle: 'rgba(0,0,0,0.5)',
 		strokeStyle: '#000',
 		lineWidth: 2,
-		cropX: 160,
-		cropY: 120,
-		cropW: 320,
-		cropH: 240,
 		imgSrc: '' //str: path to image src
 	}, objOptions || {});
+
+	this.$xBtn = this.$el.find(this.options.selectorExportBtn);
+	this.$xImg = this.$el.find(this.options.selectorExportImg);
+
+	this.$filters = this.$el.find(this.options.selectorFilters);
+	this.$currFltr = this.$filters.filter(':checked');
+	if (!this.$currFltr.length) {
+		this.$currFltr = $(this.$filters[0]);
+		this.$currFltr.prop({'checked':true});
+	}
+
+	this.$canvas = this.$el.find(this.options.selectorCanvas);
+	this.canvas = this.$canvas[0];
 
 	this.context = this.canvas.getContext('2d');
 	this.context.strokeStyle = this.options.strokeStyle;
@@ -26,29 +36,28 @@ var CanvasCropper = function($canvas, objOptions){
 	this.w = this.canvas.width;
 	this.h = this.canvas.height;
 
+	this.centerX = this.w / 2;
+	this.centerY = this.h / 2;
+
 	this.cropData = {
-		x: this.options.cropX,
-		y: this.options.cropY,
-		w: this.options.cropW,
-		h: this.options.cropH
+		w: 0,
+		h: 0,
+		x: 0,
+		y: 0
 	};
 
-	this.$xBtn = $(this.options.selectorExportBtn);
-	this.$xImg = $(this.options.selectorExportImg);
-
-	this._init();
+	this.init();
 
 };
 
 CanvasCropper.prototype = {
 
-/**
-*	Private Methods
-**/
-	_init: function(){
+	init: function(){
 		var self = this;
 
-		this._bindEvents();
+		this.bindEvents();
+
+		this.setCropData();
 
 		if (this.options.imgSrc) {
 			this.setImgSrc(this.options.imgSrc);
@@ -57,29 +66,30 @@ CanvasCropper.prototype = {
 
 	},
 
-	_bindEvents: function(){
+	bindEvents: function(){
 		var self = this;
-
 
 		this.$xBtn.on('click', function(e) {
 			e.preventDefault();
 			self.exportImg();
 		});
 
+		this.$filters.on('click', function(e) {
+			self.$currFltr = $(this);
+			self.setCropData();
+			self.drawCanvas();
+			self.drawCropTool();
+		});
+
 
 	},
 
-
-/**
-*	Event Handlers
-**/
-
-
-
-
-/**
-*	Public API
-**/
+	setCropData: function(){
+		this.cropData.w = this.$currFltr.data('w');
+		this.cropData.h = this.$currFltr.data('h');
+		this.cropData.x = this.centerX - (this.cropData.w / 2);
+		this.cropData.y = this.centerY - (this.cropData.h / 2);
+	},
 
 	setImgSrc: function(imgSrc){
 		var self = this;

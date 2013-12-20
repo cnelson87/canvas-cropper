@@ -3,8 +3,8 @@
 /*-----------------------------------------------------*/
 
 /**
-*	general styles
-**/
+/*	general styles
+/**/
 
 html.no-js .hide-no-js {display: none;}
 html.js-enabled .hide-js-enabled {display: none;}
@@ -58,8 +58,8 @@ small, .small, .note {font-size: 10px;}
 hr, div.hr {
 	clear: both;
 	height: 1px;
-	border-top: 1px dotted #999;
-	margin: 0 0 18px 0;
+	border-top: 1px solid $border-color;
+	margin-bottom: 1.5em;
 	overflow: hidden;
 }
 	div.hr hr {
@@ -70,8 +70,8 @@ hr, div.hr {
 
 
 /**
-*	list styles
-**/
+/*	list styles
+/**/
 
 nav ul, nav ol {list-style: none;}
 
@@ -90,6 +90,7 @@ ul.inline, ol.inline {
 	list-style: none;
 	> li {
 		display: inline-block;
+		margin: 0 1em;
 	}
 }
 
@@ -97,8 +98,8 @@ ul.inline, ol.inline {
 
 
 /**
-*	img styles
-**/
+/*	img styles
+/**/
 
 img.block {
 	display: block;
@@ -131,8 +132,8 @@ img.micro-thm {}
 
 
 /**
-*	link styles
-**/
+/*	link styles
+/**/
 
 
 
@@ -142,8 +143,8 @@ img.micro-thm {}
 
 
 /**
-*	misc styles
-**/
+/*	misc styles
+/**/
 
 
 

@@ -61,8 +61,8 @@ blockquote { /* note: must not leave any whitespace at the beginning of a blockq
 /* UTILITIES
 /*-----------------------------------------------------*/
 /**
-*	general styles
-**/
+/*	general styles
+/**/
 html.no-js .hide-no-js { display: none; }
 
 html.js-enabled .hide-js-enabled { display: none; }
@@ -109,14 +109,14 @@ small, .small, .note { font-size: 10px; }
 
 .strike { text-decoration: line-through; }
 
-hr, div.hr { clear: both; height: 1px; border-top: 1px dotted #999; margin: 0 0 18px 0; overflow: hidden; }
+hr, div.hr { clear: both; height: 1px; border-top: 1px solid #999999; margin-bottom: 1.5em; overflow: hidden; }
 
 div.hr hr { display: none; }
 
 /*** /general styles ***/
 /**
-*	list styles
-**/
+/*	list styles
+/**/
 nav ul, nav ol { list-style: none; }
 
 ul.disc-list { list-style-type: disc; }
@@ -138,12 +138,12 @@ ol.upper-roman { list-style: upper-roman; }
 ul.plain-list, ol.plain-list { list-style: none; }
 
 ul.inline, ol.inline { list-style: none; }
-ul.inline > li, ol.inline > li { display: inline-block; }
+ul.inline > li, ol.inline > li { display: inline-block; margin: 0 1em; }
 
 /*** /list styles ***/
 /**
-*	img styles
-**/
+/*	img styles
+/**/
 img.block { display: block; margin: 0 0 12px 0; }
 
 img.inline { display: inline; margin: 0 0.2em; vertical-align: bottom; }
@@ -155,24 +155,25 @@ img.inset-right { float: right; margin: 0 0 12px 20px; }
 /* generic img classes, no inherent style */
 /*** /img styles ***/
 /**
-*	link styles
-**/
+/*	link styles
+/**/
 /*** /link styles ***/
 /**
-*	misc styles
-**/
+/*	misc styles
+/**/
 /*** /misc styles ***/
 /*
 /* FORM ELEMENTS
 /*-----------------------------------------------------*/
 /**
-*	basic form elements
-**/
+/*	basic form elements
+/**/
 fieldset { display: block; width: auto; margin-bottom: 1.5em; }
 
 legend { display: none; }
 
 label, span.label { display: inline-block; color: #333333; font-size: 13px; font-weight: bold; line-height: 18px; padding-top: 2px; /* matches input padding-top for vertical alignment */ }
+label span.sm, span.label span.sm { font-size: 12px; font-weight: normal; }
 
 label.disabled { color: #cccccc; }
 
@@ -219,7 +220,7 @@ textarea.textarea-lrg { width: 500px; height: 102px; /* 16px * 6 line-height + 6
 
 /* end text inputs, selects, textareas */
 /* start checkbox & radio inputs */
-input[type=checkbox], input[type=radio] { /* setting exact size removes IE padding, makes uniform cross-browser */ width: 15px; height: 15px; cursor: pointer; vertical-align: middle; }
+input[type=checkbox], input[type=radio] { /* setting exact size removes IE padding, makes uniform cross-browser */ width: 16px; height: 16px; cursor: pointer; vertical-align: middle; }
 
 input[type=checkbox] + label, input[type=radio] + label { padding-top: 0; }
 
@@ -233,15 +234,15 @@ input[type=submit], input[type=reset], input[type=button], button { cursor: poin
 
 input[type=submit]:focus, input[type=submit]:hover, input[type=reset]:focus, input[type=reset]:hover, input[type=button]:focus, input[type=button]:hover, button:focus, button:hover { background: #dedede; outline: none; }
 
-input.btn, input.sm-btn { color: #fff; background: #900; }
+input.btn, input.sm-btn, button.btn, button.sm-btn { color: #fff; background: #900; }
 
-input.btn:focus, input.btn:hover, input.sm-btn:focus, input.sm-btn:hover { background: #c00; }
+input.alt-btn, input.sm-alt-btn, button.alt-btn, button.sm-alt-btn { color: #900; background: #fff; border-color: #900; }
 
-input.alt-btn, input.sm-alt-btn { color: #900; background: #fff; border-color: #900; }
+input.sm-btn, input.sm-alt-btn, button.sm-btn, button.sm-alt-btn { min-width: auto; font-size: 11px; font-weight: normal; padding: 1px 8px; }
 
-input.alt-btn:focus, input.alt-btn:hover, input.sm-alt-btn:focus, input.sm-alt-btn:hover { color: #333; background: #fff; border-color: #333; }
+input.btn:focus, input.btn:hover, input.sm-btn:focus, input.sm-btn:hover, button.btn:focus, button.btn:hover, button.sm-btn:focus, button.sm-btn:hover { background: #c00; }
 
-input.sm-btn, input.sm-alt-btn { min-width: auto; font-size: 11px; font-weight: normal; padding: 1px 8px; }
+input.alt-btn:focus, input.alt-btn:hover, input.sm-alt-btn:focus, input.sm-alt-btn:hover button.alt-btn:focus, button.alt-btn:hover, button.sm-alt-btn:focus, button.sm-alt-btn:hover { color: #333; background: #fff; border-color: #333; }
 
 /* end buttons */
 /* start misc */
@@ -254,8 +255,8 @@ input + input, input + select, input + textarea, select + input, select + select
 /* end misc */
 /*** /basic form elements ***/
 /**
-*	fieldset - list classes
-**/
+/*	fieldset styles
+/**/
 /* text inputs, selects, textareas */
 ol.horizontal-fields, ol.vertical-fields, ol.inline-fields { list-style: none; margin: 0; }
 
@@ -291,20 +292,18 @@ ol.inline-fields > li > label, ol.inline-fields > li > span.label { margin-right
 /* use with .vertical-fields or .inline-fields */
 ol.cb-rb-fields { list-style: none; margin: 0; }
 
-ol.cb-rb-fields > li { min-height: auto; margin: 0 0 8px 0; }
+ol.cb-rb-fields > li { min-height: 18px; margin: 0 0 8px 0; }
 
 ol.cb-rb-fields input[type=checkbox], ol.cb-rb-fields input[type=radio] { float: left; }
 
-ol.cb-rb-fields > li > label { display: block; margin: 0 0 0 20px; }
-
-ol.vertical-fields.cb-rb-fields > li > label { margin: 0 0 8px 20px; }
+ol.cb-rb-fields > li > label { display: block; margin: 0 0 0 24px; }
 
 ol.inline-fields.cb-rb-fields > li { display: inline-block; margin-right: 10px; }
 
 /* fieldset/div wrapper for form buttons */
-.form-btns { padding-top: 8px; border-top: 1px solid #ccc; }
+.form-btns { clear: both; border-top: 1px solid #999999; margin-bottom: 1.5em; padding-top: 1.0em; }
 
-/*** /fieldset classes ***/
+/*** /fieldset styles ***/
 /*
 /* LAYOUT
 /*-----------------------------------------------------*/
@@ -324,3 +323,9 @@ html, body { height: 100%; min-height: 100%; }
 #main #main-inner #subcol { width: 200px; min-height: 400px; padding: 94px 0 40px 0; position: relative; }
 #main #main-inner.twocols #content { float: left; width: 720px; }
 #main #main-inner.twocols #subcol { float: right; }
+
+/* CANVAS CROPPER
+/*-------------------------------------------------------*/
+.canvas-cropper .canvas-holder { float: left; width: 640px; height: 480px; margin-bottom: 20px; background: #000; border: 5px solid #000; position: relative; }
+.canvas-cropper .canvas-holder canvas { display: block; width: 100%; height: 100%; position: relative; }
+.canvas-cropper .canvas-filters { float: right; width: 240px; height: 440px; margin-bottom: 20px; background: #fff; border: 5px solid #999; padding: 20px 10px; position: relative; }

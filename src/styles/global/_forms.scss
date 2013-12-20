@@ -3,8 +3,8 @@
 /*-----------------------------------------------------*/
 
 /**
-*	basic form elements
-**/
+/*	basic form elements
+/**/
 
 fieldset {
 	display: block;
@@ -23,6 +23,10 @@ label, span.label {
 	font-weight: bold;
 	line-height: 18px;
 	padding-top: 2px; /* matches input padding-top for vertical alignment */
+	span.sm {
+		font-size: 12px;
+		font-weight: normal;
+	}
 }
 label.disabled {
 	color: $text-light-gray;
@@ -150,8 +154,8 @@ textarea.textarea-lrg {
 input[type=checkbox],
 input[type=radio] {
 	/* setting exact size removes IE padding, makes uniform cross-browser */
-	width: 15px;
-	height: 15px;
+	width: 16px;
+	height: 16px;
 	cursor: pointer;
 	vertical-align: middle;
 }
@@ -203,33 +207,37 @@ button:focus , button:hover {
 	background: #dedede;
 	outline: none;
 }
-
-input.btn, input.sm-btn {
+input.btn, input.sm-btn,
+button.btn, button.sm-btn {
 	color: #fff;
 	background: #900;
 }
-input.btn:focus, input.btn:hover,
-input.sm-btn:focus, input.sm-btn:hover {
-	background: #c00;
-}
-
-input.alt-btn, input.sm-alt-btn {
+input.alt-btn, input.sm-alt-btn,
+button.alt-btn, button.sm-alt-btn {
 	color: #900;
 	background: #fff;
 	border-color: #900;
 }
-input.alt-btn:focus, input.alt-btn:hover,
-input.sm-alt-btn:focus, input.sm-alt-btn:hover {
-	color: #333;
-	background: #fff;
-	border-color: #333;
-}
-
-input.sm-btn, input.sm-alt-btn {
+input.sm-btn, input.sm-alt-btn,
+button.sm-btn, button.sm-alt-btn {
 	min-width: auto;
 	font-size: 11px;
 	font-weight: normal;
 	padding: 1px 8px;
+}
+input.btn:focus, input.btn:hover,
+input.sm-btn:focus, input.sm-btn:hover,
+button.btn:focus, button.btn:hover,
+button.sm-btn:focus, button.sm-btn:hover {
+	background: #c00;
+}
+input.alt-btn:focus, input.alt-btn:hover,
+input.sm-alt-btn:focus, input.sm-alt-btn:hover
+button.alt-btn:focus, button.alt-btn:hover,
+button.sm-alt-btn:focus, button.sm-alt-btn:hover {
+	color: #333;
+	background: #fff;
+	border-color: #333;
 }
 
 /* end buttons */
@@ -263,8 +271,8 @@ textarea + input, textarea + select, textarea + textarea {
 
 
 /**
-*	fieldset - list classes
-**/
+/*	fieldset styles
+/**/
 
 /* text inputs, selects, textareas */
 
@@ -353,7 +361,7 @@ ol.cb-rb-fields {
 	margin: 0;
 }
 	ol.cb-rb-fields > li {
-		min-height: auto;
+		min-height: 18px;
 		margin: 0 0 8px 0;
 	}
 	ol.cb-rb-fields input[type=checkbox],
@@ -362,11 +370,7 @@ ol.cb-rb-fields {
 	}
 	ol.cb-rb-fields > li > label {
 		display: block;
-		margin: 0 0 0 20px;
-	}
-
-	ol.vertical-fields.cb-rb-fields > li > label {
-		margin: 0 0 8px 20px;
+		margin: 0 0 0 24px;
 	}
 
 	ol.inline-fields.cb-rb-fields > li {
@@ -376,8 +380,10 @@ ol.cb-rb-fields {
 
 /* fieldset/div wrapper for form buttons */
 .form-btns {
-	padding-top: 8px;
-	border-top: 1px solid #ccc;
+	clear: both;
+	border-top: 1px solid $border-color;
+	margin-bottom: 1.5em;
+	padding-top: 1.0em;
 }
 
-/*** /fieldset classes ***/
+/*** /fieldset styles ***/

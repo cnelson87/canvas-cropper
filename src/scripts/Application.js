@@ -21,10 +21,11 @@ var Application = {
 		this.$html = $('html');
 		this.$body = $('body');
 
-		var $canvas = $('#canvas-cropper').find('canvas');
+		var $el = $('#canvas-cropper');
 		var $catlinks = $('#catnav').find('a');
+		var imgSrc = $($catlinks[0]).data('href');
 
-		this.canvasCropper = new CanvasCropper($canvas);
+		this.canvasCropper = new CanvasCropper($el, {imgSrc:imgSrc});
 
 		$catlinks.on('click', function(e){
 			e.preventDefault();

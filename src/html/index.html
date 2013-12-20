@@ -3,23 +3,11 @@
 <head>
 @@include('head.html', {})
 <style>
-	.canvas-cropper {
-		display:block;
-		width:640px;
-		height:480px;
-		margin-bottom:20px;
-		background:#000;
-		border:5px solid #000;
-		position:relative;
+	#catnav {
+		margin-bottom: 1.0em;
 	}
-	.canvas-cropper > canvas {
-		display:block;
-		width:100%;
-		height:100%;
-		position:absolute;
-	}
-	.canvas-cropper + .form-action {
-		margin-bottom:20px;
+	#catnav ul {
+		margin-bottom: 0;
 	}
 </style>
 </head>
@@ -46,12 +34,60 @@
 				</nav>
 
 				<div id="canvas-cropper" class="canvas-cropper">
-					<canvas width="640" height="480"></canvas>
-				</div>
-				<div class="form-action">
-					<button id="btn-export">export image</button>
-				</div>
-				<img id="img-export" alt="" />
+					<div class="canvas-holder">
+						<canvas width="640" height="480"></canvas>
+					</div>
+					<div class="canvas-filters">
+						<h3>Filters</h3>
+						<hr />
+						<fieldset>
+							<ol class="vertical-fields cb-rb-fields">
+								<li>
+									<input type="radio" id="size-sma11" name="size" data-w="192" data-h="192" />
+									<label for="size-sma11">small 1:1 <span class="sm">(192x192)</span></label>
+								</li>
+								<li>
+									<input type="radio" id="size-sma43" name="size" data-w="256" data-h="192" />
+									<label for="size-sma43">small 4:3 <span class="sm">(256x192)</span></label>
+								</li>
+								<li>
+									<input type="radio" id="size-sma169" name="size" data-w="256" data-h="144" />
+									<label for="size-sma169">small 16:9 <span class="sm">(256x144)</span></label>
+								</li>
+								<li>
+									<input type="radio" id="size-med11" name="size" data-w="240" data-h="240" />
+									<label for="size-med11">medium 1:1 <span class="sm">(240x240)</span></label>
+								</li>
+								<li>
+									<input type="radio" id="size-med43" name="size" data-w="320" data-h="240" />
+									<label for="size-med43">medium 4:3 <span class="sm">(320x240)</span></label>
+								</li>
+								<li>
+									<input type="radio" id="size-med169" name="size" data-w="320" data-h="180" />
+									<label for="size-med169">medium 16:9 <span class="sm">(320x180)</span></label>
+								</li>
+								<li>
+									<input type="radio" id="size-lrg11" name="size" data-w="288" data-h="288" />
+									<label for="size-lrg11">large 1:1 <span class="sm">(288x288)</span></label>
+								</li>
+								<li>
+									<input type="radio" id="size-lrg43" name="size" data-w="384" data-h="288" />
+									<label for="size-lrg43">large 4:3 <span class="sm">(384x288)</span></label>
+								</li>
+								<li>
+									<input type="radio" id="size-lrg169" name="size" data-w="384" data-h="216" />
+									<label for="size-lrg169">large 16:9 <span class="sm">(384x216)</span></label>
+								</li>
+							</ol>
+						</fieldset>
+						<div class="form-btns">
+							<button class="btn-export">export image</button>
+						</div>
+					</div>
+					<div class="canvas-export">
+						<img alt="" />
+					</div>
+				</div>			
 
 			</div>
 
