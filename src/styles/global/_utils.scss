@@ -86,6 +86,13 @@ ol.upper-roman {list-style: upper-roman;}
 
 ul.plain-list, ol.plain-list {list-style: none;}
 
+ul.inline, ol.inline {
+	list-style: none;
+	> li {
+		display: inline-block;
+	}
+}
+
 /*** /list styles ***/
 
 

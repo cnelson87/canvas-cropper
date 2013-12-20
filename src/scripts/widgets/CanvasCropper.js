@@ -14,7 +14,7 @@ var CanvasCropper = function($canvas, objOptions){
 		cropY: 120,
 		cropW: 320,
 		cropH: 240,
-		imgSrc: '/data/cat1.jpg'
+		imgSrc: '' //str: path to image src
 	}, objOptions || {});
 
 	this.context = this.canvas.getContext('2d');
@@ -50,7 +50,10 @@ CanvasCropper.prototype = {
 
 		this._bindEvents();
 
-		this.setImgSrc();
+		if (this.options.imgSrc) {
+			this.setImgSrc(this.options.imgSrc);
+		}
+		
 
 	},
 
@@ -78,14 +81,17 @@ CanvasCropper.prototype = {
 *	Public API
 **/
 
-	setImgSrc: function(){
+	setImgSrc: function(imgSrc){
 		var self = this;
-		this.srcImg = new Image();
-		this.srcImg.onload = function(){
+		var newImg = new Image();
+		//this.srcImg = new Image();
+		newImg.onload = function(){
+			self.srcImg = newImg;
 			self.drawCanvas();
 			self.drawCropTool();
 		};
-		this.srcImg.src = this.options.imgSrc;
+		newImg.src = imgSrc;
+
 	},
 
 	drawCanvas: function(){

@@ -22,8 +22,16 @@ var Application = {
 		this.$body = $('body');
 
 		var $canvas = $('#canvas-cropper').find('canvas');
+		var $catlinks = $('#catnav').find('a');
 
 		this.canvasCropper = new CanvasCropper($canvas);
+
+		$catlinks.on('click', function(e){
+			e.preventDefault();
+			var imgSrc = $(this).data('href');
+			self.canvasCropper.setImgSrc(imgSrc);
+		});
+
 
 	}
 
