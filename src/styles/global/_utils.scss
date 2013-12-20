@@ -1,0 +1,145 @@
+/*
+/* UTILITIES
+/*-----------------------------------------------------*/
+
+/**
+*	general styles
+**/
+
+html.no-js .hide-no-js {display: none;}
+html.js-enabled .hide-js-enabled {display: none;}
+
+big, .big {font-size: 16px;}
+
+small, .small, .note {font-size: 10px;}
+
+.alert, .error, .important, .required {
+	color: $error-color;
+	font-weight: bold;
+}
+
+.clear {clear: both;}
+
+.offscreen {
+	position: fixed;
+	left: -9999px;
+}
+
+.float-right {float: right;}
+.float-left {float: left;}
+
+.align-right {text-align: right;}
+.align-left {text-align: left;}
+.align-center {text-align: center;}
+
+.block {display: block;}
+.inline {display: inline;}
+.inline-block {display: inline-block;}
+
+.hidden {visibility: hidden;}
+
+.nowrap {white-space: nowrap;}
+
+.normal {
+	font-weight: normal;
+	text-transform: none;
+}
+
+.first-line {font-size: 14px;}
+
+.lower {text-transform: lowercase;}
+
+.upper {text-transform: uppercase;}
+
+.underline {text-decoration: underline;}
+
+.strike {text-decoration: line-through;}
+
+hr, div.hr {
+	clear: both;
+	height: 1px;
+	border-top: 1px dotted #999;
+	margin: 0 0 18px 0;
+	overflow: hidden;
+}
+	div.hr hr {
+		display: none;
+	}
+
+/*** /general styles ***/
+
+
+/**
+*	list styles
+**/
+
+nav ul, nav ol {list-style: none;}
+
+ul.disc-list {list-style-type: disc;}
+ul.circle-list {list-style-type: circle;}
+ul.square-list {list-style-type: square;}
+ol.numbered-list {list-style: decimal;}
+ol.lower-alpha {list-style: lower-alpha;}
+ol.upper-alpha {list-style: upper-alpha;}
+ol.lower-roman {list-style: lower-roman;}
+ol.upper-roman {list-style: upper-roman;}
+
+ul.plain-list, ol.plain-list {list-style: none;}
+
+/*** /list styles ***/
+
+
+/**
+*	img styles
+**/
+
+img.block {
+	display: block;
+	margin: 0 0 12px 0;
+}
+
+img.inline {
+	display: inline;
+	margin: 0 0.2em;
+	vertical-align: bottom;
+}
+
+img.inset-left {
+	float: left;
+	margin: 0 20px 12px 0;
+}
+
+img.inset-right {
+	float: right;
+	margin: 0 0 12px 20px;
+}
+
+/* generic img classes, no inherent style */
+img.icon {}
+img.thumb {}
+img.minithumb {}
+img.micro-thm {}
+
+/*** /img styles ***/
+
+
+/**
+*	link styles
+**/
+
+
+
+
+
+/*** /link styles ***/
+
+
+/**
+*	misc styles
+**/
+
+
+
+
+
+/*** /misc styles ***/

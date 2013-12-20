@@ -1,0 +1,383 @@
+/*
+/* FORM ELEMENTS
+/*-----------------------------------------------------*/
+
+/**
+*	basic form elements
+**/
+
+fieldset {
+	display: block;
+	width: auto;
+	margin-bottom: 1.5em;
+}
+
+legend {
+	display: none;
+}
+
+label, span.label {
+	display: inline-block;
+	color: $text-dark-gray;
+	font-size: 13px;
+	font-weight: bold;
+	line-height: 18px;
+	padding-top: 2px; /* matches input padding-top for vertical alignment */
+}
+label.disabled {
+	color: $text-light-gray;
+}
+
+input, select, textarea, button {
+	color: $text-dark-gray;
+	font-family: Arial, sans-serif;
+	font-size: 13px;
+	vertical-align: top;
+	margin: 0;
+	padding: 0;
+	@include prefix(box-sizing, border-box);
+}
+
+input:invalid,
+select:invalid,
+textarea:invalid {
+	box-shadow: none;
+	outline: 0;
+}
+
+::-webkit-input-placeholder {
+	color: $text-med-gray;
+	opacity: 1;
+}
+::-moz-placeholder {
+	color: $text-med-gray;
+	opacity: 1;
+}
+:-ms-input-placeholder {
+	color: $text-med-gray;
+	opacity: 1;
+}
+::input-placeholder {
+	color: $text-med-gray;
+	opacity: 1;
+}
+
+/* start text inputs, selects, textareas */
+
+input:not([type=checkbox]):not([type=radio]):not([type=submit]),
+select,
+textarea {
+	width: 140px;
+	height: 24px;
+	border: 1px solid #ccc;
+	border-radius: 3px;
+	padding: 2px;
+}
+
+select {
+	width: auto;
+	min-width: 80px;
+	max-width: 100%;
+}
+
+textarea {
+	height: 38px;
+	line-height: 16px;
+}
+
+input:not([type=checkbox]):not([type=radio]):not([type=submit]):focus,
+select:focus,
+textarea:focus {
+	border-color: #333;
+	outline: none;
+}
+
+input:not([type=checkbox]):not([type=radio]):not([type=submit])[disabled=disabled],
+input:not([type=checkbox]):not([type=radio]):not([type=submit]).disabled,
+select[disabled=disabled], select.disabled,
+textarea[disabled=disabled], textarea.disabled {
+	color: #ccc;
+	border-color: #dedede;
+}
+
+input:not([type=checkbox]):not([type=radio]):not([type=submit]).invalid,
+select.invalid,
+textarea.invalid {
+	border-color: #c00;
+}
+
+input:not([type=checkbox]):not([type=radio]):not([type=submit]).input-med,
+select.input-med {
+	/* default */
+	width: 140px;
+}
+input:not([type=checkbox]):not([type=radio]):not([type=submit]).input-xshort,
+select.input-xshort {
+	width: 40px;
+	min-width: 40px;
+}
+input:not([type=checkbox]):not([type=radio]):not([type=submit]).input-short,
+select.input-short {
+	width: 80px;
+}
+input:not([type=checkbox]):not([type=radio]):not([type=submit]).input-long,
+select.input-long {
+	width: 240px;
+}
+input:not([type=checkbox]):not([type=radio]):not([type=submit]).input-xlong,
+select.input-xlong {
+	width: 360px;
+}
+input:not([type=checkbox]):not([type=radio]):not([type=submit]).input-auto,
+select.input-auto {
+	width: auto;
+	min-width: auto;
+}
+
+textarea.textarea-med {
+	width: 280px;
+	height: 70px; /* 16px * 4 line-height + 6px padding & border */
+}
+textarea.textarea-lrg {
+	width: 500px;
+	height: 102px; /* 16px * 6 line-height + 6px padding & border */
+}
+
+/* end text inputs, selects, textareas */
+
+/* start checkbox & radio inputs */
+
+input[type=checkbox],
+input[type=radio] {
+	/* setting exact size removes IE padding, makes uniform cross-browser */
+	width: 15px;
+	height: 15px;
+	cursor: pointer;
+	vertical-align: middle;
+}
+	input[type=checkbox] + label,
+	input[type=radio] + label {
+		padding-top: 0;
+	}
+input[type=checkbox][disabled=disabled],
+input[type=radio][disabled=disabled],
+input[type=checkbox].disabled,
+input[type=radio].disabled {
+	cursor: default;
+}
+	input[type=checkbox][disabled=disabled] + label,
+	input[type=radio][disabled=disabled] + label,
+	input[type=checkbox].disabled + label,
+	input[type=radio].disabled + label {
+		color: #ccc;
+	}
+
+/* end checkbox & radio inputs */
+
+/* start buttons */
+
+input[type=submit],
+input[type=reset],
+input[type=button],
+button {
+	cursor: pointer;
+	min-width: 88px;
+	font-size: 12px;
+	font-weight: bold;
+	text-align: center;
+	text-decoration: none;
+	text-transform: uppercase;
+	vertical-align: middle;
+	background: #ccc;
+	border: 1px solid #333;
+	border-radius: 3px;
+	padding: 4px 12px;
+	/* IE width fix, no affect on other browsers */
+	overflow: visible;
+	@include prefix(transition, 'color .2s, background-color .2s');
+}
+input[type=submit]:focus, input[type=submit]:hover,
+input[type=reset]:focus, input[type=reset]:hover,
+input[type=button]:focus, input[type=button]:hover,
+button:focus , button:hover {
+	background: #dedede;
+	outline: none;
+}
+
+input.btn, input.sm-btn {
+	color: #fff;
+	background: #900;
+}
+input.btn:focus, input.btn:hover,
+input.sm-btn:focus, input.sm-btn:hover {
+	background: #c00;
+}
+
+input.alt-btn, input.sm-alt-btn {
+	color: #900;
+	background: #fff;
+	border-color: #900;
+}
+input.alt-btn:focus, input.alt-btn:hover,
+input.sm-alt-btn:focus, input.sm-alt-btn:hover {
+	color: #333;
+	background: #fff;
+	border-color: #333;
+}
+
+input.sm-btn, input.sm-alt-btn {
+	min-width: auto;
+	font-size: 11px;
+	font-weight: normal;
+	padding: 1px 8px;
+}
+
+/* end buttons */
+
+/* start misc */
+
+.form-note { /* note next to an input field */
+	display: inline-block;
+	color: #666;
+	font-size: 11px;
+	line-height: 15px;
+	margin: 5px 0 0 5px;
+}
+.form-message { /* message below an input field */
+	display: block;
+	color: #666;
+	font-size: 11px;
+	line-height: 15px;
+	margin-top: 5px;
+}
+
+input + input, input + select, input + textarea,
+select + input, select + select, select + textarea,
+textarea + input, textarea + select, textarea + textarea {
+	margin-left: 5px;
+}
+
+/* end misc */
+
+/*** /basic form elements ***/
+
+
+/**
+*	fieldset - list classes
+**/
+
+/* text inputs, selects, textareas */
+
+ol.horizontal-fields,
+ol.vertical-fields,
+ol.inline-fields {
+	list-style: none;
+	margin: 0;
+}
+	ol.horizontal-fields > li,
+	ol.vertical-fields > li,
+	ol.inline-fields > li {
+		min-height: 24px; /* matches input height */
+		margin: 0 0 8px 0;
+	}
+
+	ol.horizontal-fields > li > label,
+	ol.horizontal-fields > li > span.label {
+		width: 120px;
+		text-align: right;
+		margin-right: 5px;
+	}
+	ol.horizontal-fields.label-width-short > li > label,
+	ol.horizontal-fields.label-width-short > li > span.label,
+	ol.horizontal-fields > li > label.width-short,
+	ol.horizontal-fields > li > span.label.width-short {
+		width: 80px;
+	}
+	ol.horizontal-fields.label-width-long > li > label,
+	ol.horizontal-fields.label-width-long > li > span.label,
+	ol.horizontal-fields > li > label.width-long,
+	ol.horizontal-fields > li > span.label.width-short {
+		width: 160px;
+	}
+	ol.horizontal-fields.label-width-auto > li > label,
+	ol.horizontal-fields.label-width-auto > li > span.label,
+	ol.horizontal-fields > li > label.width-auto,
+	ol.horizontal-fields > li > span.label.width-short {
+		width: auto;
+	}
+	ol.horizontal-fields.label-align-left > li > label,
+	ol.horizontal-fields.label-align-left > li > span.label,
+	ol.horizontal-fields > li > label.align-left,
+	ol.horizontal-fields > li > span.label.align-left {
+		text-align: left;
+	}
+	ol.horizontal-fields div.form-message {
+		margin-left: 130px; /* matches label width + margin */
+	}
+	ol.horizontal-fields.label-width-short div.form-message {
+		margin-left: 90px;
+	}
+	ol.horizontal-fields.label-width-long div.form-message {
+		margin-left: 170px;
+	}
+	ol.horizontal-fields ol.cb-rb-fields {
+		display: inline-block;
+		vertical-align: top;
+		margin: 2px 0 -8px 0;
+	}
+
+	ol.vertical-fields > li > label,
+	ol.vertical-fields > li > span.label {
+		display: block;
+		margin: 0 0 2px 0;
+	}
+
+	ol.inline-fields > li {
+		display: inline-block;
+		margin-right: 10px;
+	}
+	ol.inline-fields > li.full-width {
+		display: block;
+		margin-right: 0;
+	}
+	ol.inline-fields > li > label,
+	ol.inline-fields > li > span.label {
+		margin-right: 5px;
+	}
+
+/* checkbox and radio inputs */
+
+/* use with .vertical-fields or .inline-fields */
+ol.cb-rb-fields {
+	list-style: none;
+	margin: 0;
+}
+	ol.cb-rb-fields > li {
+		min-height: auto;
+		margin: 0 0 8px 0;
+	}
+	ol.cb-rb-fields input[type=checkbox],
+	ol.cb-rb-fields input[type=radio] {
+		float: left;
+	}
+	ol.cb-rb-fields > li > label {
+		display: block;
+		margin: 0 0 0 20px;
+	}
+
+	ol.vertical-fields.cb-rb-fields > li > label {
+		margin: 0 0 8px 20px;
+	}
+
+	ol.inline-fields.cb-rb-fields > li {
+		display: inline-block;
+		margin-right: 10px;
+	}
+
+/* fieldset/div wrapper for form buttons */
+.form-btns {
+	padding-top: 8px;
+	border-top: 1px solid #ccc;
+}
+
+/*** /fieldset classes ***/

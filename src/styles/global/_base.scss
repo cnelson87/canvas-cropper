@@ -1,0 +1,156 @@
+/*
+/* RESET / NORMALIZE / REBUILD
+/*-----------------------------------------------------*/
+
+html, body, div, span, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, samp,
+small, strike, strong, sub, sup, var,
+b, i, u, center, hr,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	border: 0;
+	margin: 0;
+	padding: 0;
+	outline: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section, summary {
+	display: block;
+}
+audio, canvas, video {
+	display: inline-block;
+}
+
+body {
+	color: $text-primary;
+	font-family: Arial, Verdana, sans-serif;
+	/* uncomment appropriate line to set default type size */
+	/* font-size: 100%; /* 16px */
+	/* font-size: 87.5%; /* 14px */
+	font-size: 75.0%; /* 12px */
+	/* font-size: 62.5%; /* 10px */
+	line-height: 1.0;
+	background: #fff;
+}
+
+/* a, a:link, a:visited */
+a {
+	color: $link-color;
+	text-decoration: none;
+	@include prefix(transition, 'color .2s, background-color .2s');
+}
+/* a:focus, a:hover, a:visited:hover, a:active */
+a:focus, a:hover {
+	color: $link-hover-color;
+	text-decoration: underline;
+}
+
+p, ul, ol, dl, table, address {
+	font-size: 1.0em;
+	line-height: 1.5em;
+	margin-bottom: 1.5em;
+}
+	li {
+		margin: 0 0 8px 20px;
+	}
+	dt {
+		font-weight: bold;
+		margin: 0 0 2px 0;
+	}
+	dd {
+		margin: 0 0 8px 0;
+	}
+
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+	th {
+		font-weight: bold;
+		text-align: left;
+		vertical-align: bottom;
+	}
+	td {
+		vertical-align: top;
+	}
+
+h1 {
+	color: $text-dark-gray;
+	font-family: 'Droid Sans', Arial, sans-serif;
+	font-size: 32px;
+	font-weight: normal;
+	line-height: 36px;
+	margin: 0 0 18px 0;
+}
+h2, .h2 {
+	color: $text-dark-gray;
+	font-family: 'Droid Sans', Arial, sans-serif;
+	font-size: 22px;
+	font-weight: normal;
+	line-height: 24px;
+	margin: 0 0 12px 0;
+}
+h3, .h3 {
+	font-size: 16px;
+	font-weight: bold;
+	line-height: 18px;
+	margin: 0 0 8px 0;
+}
+h4, .h4 {
+	font-size: 14px;
+	font-weight: bold;
+	line-height: 16px;
+	margin: 0 0 6px 0;
+}
+h5, .h5 {
+	font-size: 12px;
+	font-weight: bold;
+	line-height: 14px;
+	margin: 0 0 4px 0;
+}
+h6, .h6 {
+	font-size: 12px;
+	font-weight: normal;
+	line-height: 14px;
+	margin: 0 0 2px 0;
+}
+
+b, strong {font-weight: bold;}
+
+i, em {	font-style: italic;}
+
+sub, sup {
+	font-size: 75%;
+	line-height: 0;
+	position: relative;
+	vertical-align: baseline;
+}
+sup {top: -0.5em;}
+sub {bottom: -0.25em;}
+
+blockquote, q {quotes: none;}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+blockquote {
+	/* note: must not leave any whitespace at the beginning of a blockquote in markup - Safari will render it  */
+	color: $text-dark-gray;
+	font-size: 20px;
+	font-family: Georgia, Times, serif;
+	font-weight: normal;
+	line-height: 1.2em;
+	margin: 0 0 1.2em 0;
+	padding: 0 20px;
+}
