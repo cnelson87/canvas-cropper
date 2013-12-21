@@ -39,12 +39,11 @@ var CanvasCropper = function($el, objOptions){
 	this.centerX = this.w / 2;
 	this.centerY = this.h / 2;
 
-	this.cropData = {
-		w: 0,
-		h: 0,
-		x: 0,
-		y: 0
-	};
+	this.offset = this.$canvas.offset();
+
+	this.cropData = {w: 0, h: 0, x: 0, y: 0};
+
+	this.bDrag = false;
 
 	this.init();
 
@@ -81,6 +80,39 @@ CanvasCropper.prototype = {
 			self.drawCropTool();
 		});
 
+		this.$canvas
+			.on('mousemove', function(e) {
+				console.log('mousemove');
+				var canvasOffset = self.$canvas.offset();
+				var iMouseX = Math.floor(e.pageX - canvasOffset.left);
+				var iMouseY = Math.floor(e.pageY - canvasOffset.top);
+
+				if (self.bDrag) {
+					self.cropData.x = iMouseX;
+					self.cropData.y = iMouseY;
+
+					self.drawCanvas();
+					self.drawCropTool();
+
+				}
+
+			})
+			.on('mousedown', function(e) {
+				console.log('mousedown');
+				var canvasOffset = self.$canvas.offset();
+				var iMouseX = Math.floor(e.pageX - canvasOffset.left);
+				var iMouseY = Math.floor(e.pageY - canvasOffset.top);
+
+				if (iMouseX > self.cropData.x && iMouseX < self.cropData.x + self.cropData.w &&
+					iMouseY > self.cropData.y && iMouseY < self.cropData.y + self.cropData.h) {
+					self.bDrag = true;
+				}
+
+			})
+			.on('mouseup', function(e) {
+				console.log('mouseup');
+				self.bDrag = false;
+			});
 
 	},
 
