@@ -42,6 +42,8 @@ var CanvasCropper = function($el, objOptions){
 	this.offset = this.$canvas.offset();
 
 	this.cropData = {w: 0, h: 0, x: 0, y: 0};
+	this.adjX = this.cropData.x;
+	this.adjY = this.cropData.y;
 
 	this.bDrag = false;
 
@@ -51,12 +53,12 @@ var CanvasCropper = function($el, objOptions){
 
 CanvasCropper.prototype = {
 
-	init: function(){
+	init: function() {
 		var self = this;
 
 		this.bindEvents();
 
-		this.setCropData();
+		this.initCropData();
 
 		if (this.options.imgSrc) {
 			this.setImgSrc(this.options.imgSrc);
@@ -65,31 +67,44 @@ CanvasCropper.prototype = {
 
 	},
 
-	bindEvents: function(){
+	bindEvents: function() {
 		var self = this;
 
-		this.$xBtn.on('click', function(e) {
+		this.$xBtn.on('click', function(e){
 			e.preventDefault();
 			self.exportImg();
 		});
 
-		this.$filters.on('click', function(e) {
+		this.$filters.on('click', function(e){
 			self.$currFltr = $(this);
-			self.setCropData();
+			self.initCropData();
 			self.drawCanvas();
 			self.drawCropTool();
 		});
 
 		this.$canvas
-			.on('mousemove', function(e) {
-				console.log('mousemove');
+			.on('mousemove', function(e){
+				//console.log('mousemove');
 				var canvasOffset = self.$canvas.offset();
-				var iMouseX = Math.floor(e.pageX - canvasOffset.left);
-				var iMouseY = Math.floor(e.pageY - canvasOffset.top);
+				var mouseX = Math.floor(e.pageX - canvasOffset.left);
+				var mouseY = Math.floor(e.pageY - canvasOffset.top);
 
 				if (self.bDrag) {
-					self.cropData.x = iMouseX;
-					self.cropData.y = iMouseY;
+					self.cropData.x = mouseX - self.adjX;
+					self.cropData.y = mouseY - self.adjY;
+
+					if (self.cropData.x < 0) {
+						self.cropData.x = 0;
+					}
+					if (self.cropData.y < 0) {
+						self.cropData.y = 0;
+					}
+					if (self.cropData.x + self.cropData.w > self.w) {
+						self.cropData.x = self.w - self.cropData.w;
+					}
+					if (self.cropData.y + self.cropData.h > self.h) {
+						self.cropData.y = self.h - self.cropData.h;
+					}
 
 					self.drawCanvas();
 					self.drawCropTool();
@@ -97,33 +112,49 @@ CanvasCropper.prototype = {
 				}
 
 			})
-			.on('mousedown', function(e) {
-				console.log('mousedown');
+			.on('mousedown', function(e){
+				//console.log('mousedown');
 				var canvasOffset = self.$canvas.offset();
-				var iMouseX = Math.floor(e.pageX - canvasOffset.left);
-				var iMouseY = Math.floor(e.pageY - canvasOffset.top);
+				var mouseX = Math.floor(e.pageX - canvasOffset.left);
+				var mouseY = Math.floor(e.pageY - canvasOffset.top);
 
-				if (iMouseX > self.cropData.x && iMouseX < self.cropData.x + self.cropData.w &&
-					iMouseY > self.cropData.y && iMouseY < self.cropData.y + self.cropData.h) {
+				if (mouseX > self.cropData.x && mouseX < self.cropData.x + self.cropData.w && 
+					mouseY > self.cropData.y && mouseY < self.cropData.y + self.cropData.h) {
 					self.bDrag = true;
+					self.adjX = mouseX - self.cropData.x;
+					self.adjY = mouseY - self.cropData.y;
 				}
 
 			})
-			.on('mouseup', function(e) {
-				console.log('mouseup');
+			.on('mouseup', function(e){
+				//console.log('mouseup');
 				self.bDrag = false;
+
+				self.adjX = self.cropData.x;
+				self.adjY = self.cropData.y;
+
+			})
+			.on('mouseout', function(e){
+				//console.log('mouseout');
+				self.bDrag = false;
+
+				self.adjX = self.cropData.x;
+				self.adjY = self.cropData.y;
+
 			});
 
 	},
 
-	setCropData: function(){
+	initCropData: function() {
 		this.cropData.w = this.$currFltr.data('w');
 		this.cropData.h = this.$currFltr.data('h');
 		this.cropData.x = this.centerX - (this.cropData.w / 2);
 		this.cropData.y = this.centerY - (this.cropData.h / 2);
+		this.adjX = this.cropData.x;
+		this.adjY = this.cropData.y;
 	},
 
-	setImgSrc: function(imgSrc){
+	setImgSrc: function(imgSrc) {
 		var self = this;
 		var newImg = new Image();
 		//this.srcImg = new Image();
@@ -136,19 +167,19 @@ CanvasCropper.prototype = {
 
 	},
 
-	drawCanvas: function(){
+	drawCanvas: function() {
 		this.context.clearRect(0, 0, this.w, this.h); // clear canvas
 		this.context.drawImage(this.srcImg, 0, 0);
 		this.context.fillStyle = this.options.fillStyle;
 		this.context.fillRect(0, 0, this.w, this.h);
 	},
 
-	drawCropTool: function(){
+	drawCropTool: function() {
 		this.context.strokeRect(this.cropData.x, this.cropData.y, this.cropData.w, this.cropData.h);
 		this.context.drawImage(this.srcImg, this.cropData.x, this.cropData.y, this.cropData.w, this.cropData.h, this.cropData.x, this.cropData.y, this.cropData.w, this.cropData.h);
 	},
 
-	exportImg: function(){
+	exportImg: function() {
 		var tempCanvas = document.createElement('canvas');
 		var tempContext = tempCanvas.getContext('2d');
 		var dataUrl;
