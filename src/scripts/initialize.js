@@ -1,4 +1,3 @@
-
 var Application = require('./Application');
 
 $(function() {
