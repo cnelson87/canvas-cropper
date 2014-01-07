@@ -187,7 +187,7 @@ CanvasCropper.prototype = {
 		tempCanvas.width = this.cropData.w;
 		tempCanvas.height = this.cropData.h;
 		tempContext.drawImage(this.srcImg, this.cropData.x, this.cropData.y, this.cropData.w, this.cropData.h, 0, 0, this.cropData.w, this.cropData.h);
-		dataUrl = tempCanvas.toDataURL('image/png');
+		dataUrl = tempCanvas.toDataURL('image/jpeg', 0.8);
 
 		this.$xImg.attr({'src': dataUrl});
 

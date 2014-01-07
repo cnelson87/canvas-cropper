@@ -190,17 +190,17 @@ input:invalid, select:invalid, textarea:invalid { box-shadow: none; outline: 0; 
 ::input-placeholder { color: #999999; opacity: 1; }
 
 /* start text inputs, selects, textareas */
-input:not([type=checkbox]):not([type=radio]):not([type=submit]), select, textarea { width: 140px; height: 24px; border: 1px solid #ccc; border-radius: 3px; padding: 2px; }
+input:not([type=range]):not([type=checkbox]):not([type=radio]):not([type=submit]), select, textarea { width: 140px; height: 24px; border: 1px solid #ccc; border-radius: 3px; padding: 2px; }
 
 select { width: auto; min-width: 80px; max-width: 100%; }
 
 textarea { height: 38px; line-height: 16px; }
 
-input:not([type=checkbox]):not([type=radio]):not([type=submit]):focus, select:focus, textarea:focus { border-color: #333; outline: none; }
+input:not([type=range]):not([type=checkbox]):not([type=radio]):not([type=submit]):focus, select:focus, textarea:focus { border-color: #333; outline: none; }
 
-input:not([type=checkbox]):not([type=radio]):not([type=submit])[disabled=disabled], input:not([type=checkbox]):not([type=radio]):not([type=submit]).disabled, select[disabled=disabled], select.disabled, textarea[disabled=disabled], textarea.disabled { color: #ccc; border-color: #dedede; }
+input:not([type=range]):not([type=checkbox]):not([type=radio]):not([type=submit])[disabled], input:not([type=range]):not([type=checkbox]):not([type=radio]):not([type=submit]).disabled, select[disabled], select.disabled, textarea[disabled], textarea.disabled { color: #ccc; border-color: #dedede; }
 
-input:not([type=checkbox]):not([type=radio]):not([type=submit]).invalid, select.invalid, textarea.invalid { border-color: #c00; }
+input:not([type=checkbox]):not([type=radio]):not([type=range]):not([type=submit]).invalid, select.invalid, textarea.invalid { border-color: #c00; }
 
 input:not([type=checkbox]):not([type=radio]):not([type=submit]).input-med, select.input-med { /* default */ width: 140px; }
 
@@ -221,17 +221,18 @@ textarea.textarea-lrg { width: 500px; height: 102px; /* 16px * 6 line-height + 6
 /* end text inputs, selects, textareas */
 /* start checkbox & radio inputs */
 input[type=checkbox], input[type=radio] { /* setting exact size removes IE padding, makes uniform cross-browser */ width: 16px; height: 16px; cursor: pointer; vertical-align: middle; }
-
 input[type=checkbox] + label, input[type=radio] + label { padding-top: 0; }
-
-input[type=checkbox][disabled=disabled], input[type=radio][disabled=disabled], input[type=checkbox].disabled, input[type=radio].disabled { cursor: default; }
-
-input[type=checkbox][disabled=disabled] + label, input[type=radio][disabled=disabled] + label, input[type=checkbox].disabled + label, input[type=radio].disabled + label { color: #ccc; }
+input[type=checkbox][disabled], input[type=checkbox].disabled, input[type=radio][disabled], input[type=radio].disabled { cursor: default; }
+input[type=checkbox][disabled] + label, input[type=checkbox].disabled + label, input[type=radio][disabled] + label, input[type=radio].disabled + label { color: #cccccc; }
 
 /* end checkbox & radio inputs */
-/* start buttons */
-input[type=submit], input[type=reset], input[type=button], button { cursor: pointer; min-width: 88px; font-size: 12px; font-weight: bold; text-align: center; text-decoration: none; text-transform: uppercase; vertical-align: middle; background: #ccc; border: 1px solid #333; border-radius: 3px; padding: 4px 12px; /* IE width fix, no affect on other browsers */ overflow: visible; -webkit-transition: color .2s, background-color .2s; -moz-transition: color .2s, background-color .2s; -ms-transition: color .2s, background-color .2s; -o-transition: color .2s, background-color .2s; transition: color .2s, background-color .2s; }
+/* start range input */
+input[type=range] { width: 140px; height: 24px; cursor: pointer; }
+input[type=range][disabled], input[type=range].disabled { cursor: default; }
 
+/* end range input */
+/* start buttons */
+input[type=submit], input[type=reset], input[type=button], button { cursor: pointer; min-width: 88px; font-size: 12px; font-weight: bold; text-align: center; text-decoration: none; text-transform: uppercase; vertical-align: middle; background: #ccc; border: 1px solid #333; border-radius: 3px; padding: 4px 12px; /* old IE width fix, no affect on other browsers */ overflow: visible; -webkit-transition: color .2s, background-color .2s; -moz-transition: color .2s, background-color .2s; -ms-transition: color .2s, background-color .2s; -o-transition: color .2s, background-color .2s; transition: color .2s, background-color .2s; }
 input[type=submit]:focus, input[type=submit]:hover, input[type=reset]:focus, input[type=reset]:hover, input[type=button]:focus, input[type=button]:hover, button:focus, button:hover { background: #dedede; outline: none; }
 
 input.btn, input.sm-btn, button.btn, button.sm-btn { color: #fff; background: #900; }
@@ -309,7 +310,7 @@ ol.inline-fields.cb-rb-fields > li { display: inline-block; margin-right: 10px; 
 /*-----------------------------------------------------*/
 html, body { height: 100%; min-height: 100%; }
 
-#wrapper { width: 100%; min-width: 960px; height: 100%; min-height: 100%; margin: 0 auto; padding: 80px 0; position: relative; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; -ms-box-sizing: border-box; -o-box-sizing: border-box; box-sizing: border-box; }
+#wrapper { width: 100%; min-width: 1000px; height: 100%; min-height: 100%; margin: 0 auto; padding: 80px 0; position: relative; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; -ms-box-sizing: border-box; -o-box-sizing: border-box; box-sizing: border-box; }
 
 #header { width: 100%; background: #dedede; position: fixed; left: 0; top: 0; z-index: 3; }
 #header #header-inner { width: 1000px; height: 80px; background: #cdcdcd; margin: 0 auto; padding: 20px; position: relative; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; -ms-box-sizing: border-box; -o-box-sizing: border-box; box-sizing: border-box; }

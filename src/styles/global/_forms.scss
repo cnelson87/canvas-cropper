@@ -68,7 +68,7 @@ textarea:invalid {
 
 /* start text inputs, selects, textareas */
 
-input:not([type=checkbox]):not([type=radio]):not([type=submit]),
+input:not([type=range]):not([type=checkbox]):not([type=radio]):not([type=submit]),
 select,
 textarea {
 	width: 140px;
@@ -89,22 +89,22 @@ textarea {
 	line-height: 16px;
 }
 
-input:not([type=checkbox]):not([type=radio]):not([type=submit]):focus,
+input:not([type=range]):not([type=checkbox]):not([type=radio]):not([type=submit]):focus,
 select:focus,
 textarea:focus {
 	border-color: #333;
 	outline: none;
 }
 
-input:not([type=checkbox]):not([type=radio]):not([type=submit])[disabled=disabled],
-input:not([type=checkbox]):not([type=radio]):not([type=submit]).disabled,
-select[disabled=disabled], select.disabled,
-textarea[disabled=disabled], textarea.disabled {
+input:not([type=range]):not([type=checkbox]):not([type=radio]):not([type=submit])[disabled],
+input:not([type=range]):not([type=checkbox]):not([type=radio]):not([type=submit]).disabled,
+select[disabled], select.disabled,
+textarea[disabled], textarea.disabled {
 	color: #ccc;
 	border-color: #dedede;
 }
 
-input:not([type=checkbox]):not([type=radio]):not([type=submit]).invalid,
+input:not([type=checkbox]):not([type=radio]):not([type=range]):not([type=submit]).invalid,
 select.invalid,
 textarea.invalid {
 	border-color: #c00;
@@ -158,25 +158,38 @@ input[type=radio] {
 	height: 16px;
 	cursor: pointer;
 	vertical-align: middle;
-}
-	input[type=checkbox] + label,
-	input[type=radio] + label {
+
+	& + label {
 		padding-top: 0;
 	}
-input[type=checkbox][disabled=disabled],
-input[type=radio][disabled=disabled],
-input[type=checkbox].disabled,
-input[type=radio].disabled {
-	cursor: default;
-}
-	input[type=checkbox][disabled=disabled] + label,
-	input[type=radio][disabled=disabled] + label,
-	input[type=checkbox].disabled + label,
-	input[type=radio].disabled + label {
-		color: #ccc;
+
+	&[disabled], &.disabled {
+		cursor: default;
+
+		& + label {
+			color: $text-light-gray;
+		}
+
 	}
 
+}
+
 /* end checkbox & radio inputs */
+
+/* start range input */
+
+input[type=range] {
+	width: 140px;
+	height: 24px;
+	cursor: pointer;
+
+	&[disabled], &.disabled {
+		cursor: default;
+	}
+
+}
+
+/* end range input */
 
 /* start buttons */
 
@@ -196,17 +209,17 @@ button {
 	border: 1px solid #333;
 	border-radius: 3px;
 	padding: 4px 12px;
-	/* IE width fix, no affect on other browsers */
+	/* old IE width fix, no affect on other browsers */
 	overflow: visible;
 	@include prefix(transition, 'color .2s, background-color .2s');
+
+	&:focus, &:hover {
+		background: #dedede;
+		outline: none;
+	}
+
 }
-input[type=submit]:focus, input[type=submit]:hover,
-input[type=reset]:focus, input[type=reset]:hover,
-input[type=button]:focus, input[type=button]:hover,
-button:focus , button:hover {
-	background: #dedede;
-	outline: none;
-}
+
 input.btn, input.sm-btn,
 button.btn, button.sm-btn {
 	color: #fff;
