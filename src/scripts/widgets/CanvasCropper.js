@@ -168,13 +168,20 @@ CanvasCropper.prototype = {
 	},
 
 	drawCanvas: function() {
+		var x = (this.w - this.srcImg.width) / 2;
+		var y = (this.h - this.srcImg.height) / 2;
+		console.log(x, y);
 		this.context.clearRect(0, 0, this.w, this.h); // clear canvas
-		this.context.drawImage(this.srcImg, 0, 0);
+		this.context.drawImage(this.srcImg, x, y);
 		this.context.fillStyle = this.options.fillStyle;
 		this.context.fillRect(0, 0, this.w, this.h);
 	},
 
 	drawCropTool: function() {
+		var x = (this.w - this.srcImg.width) / 2;
+		var y = (this.h - this.srcImg.height) / 2;
+		console.log(this.cropData.x + x, this.cropData.y + y);
+		console.log(this.cropData.x - x, this.cropData.y - y);
 		this.context.strokeRect(this.cropData.x, this.cropData.y, this.cropData.w, this.cropData.h);
 		this.context.drawImage(this.srcImg, this.cropData.x, this.cropData.y, this.cropData.w, this.cropData.h, this.cropData.x, this.cropData.y, this.cropData.w, this.cropData.h);
 	},

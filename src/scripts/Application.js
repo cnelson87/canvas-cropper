@@ -1,17 +1,7 @@
-/**
- * Application Bootstrapper
- * 
- * @author Chris Nelson
- * @since  8.5.13
- */
 
 var CanvasCropper = require('./widgets/CanvasCropper');
 
 var Application = {
-
-	/**
-	 * Initialize the app
-	 **/
 	initialize: function() {
 		//console.log('Application:initialize');
 		var self = this;
@@ -32,7 +22,6 @@ var Application = {
 			var imgSrc = $(this).data('href');
 			self.canvasCropper.setImgSrc(imgSrc);
 		});
-
 
 	}
 
