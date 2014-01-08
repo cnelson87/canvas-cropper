@@ -2,14 +2,14 @@
 <html dir="ltr" lang="en">
 <head>
 @@include('head.html', {})
-<style>
-	#catnav {
-		margin-bottom: 1.0em;
-	}
-	#catnav ul {
-		margin-bottom: 0;
-	}
-</style>
+	<style>
+		#catnav {
+			margin-bottom: 1.0em;
+		}
+		#catnav ul {
+			margin-bottom: 0;
+		}
+	</style>
 </head>
 <body>
 
@@ -27,11 +27,12 @@
 				<nav id="catnav">
 					<ul class="inline">
 						<li><a href="#cat1" data-href="/data/cat1.jpg">cat1</a></li>
-						<li><a href="#cat2" data-href="/data/cat2.jpg">cat2</a></li>
+						<!-- <li><a href="#cat2" data-href="/data/cat2.jpg">cat2</a></li> -->
 						<li><a href="#cat3" data-href="/data/cat3-lrg.jpg">cat3 lrg</a></li>
-						<li><a href="#cat4" data-href="/data/cat4.jpg">cat4</a></li>
+						<!-- <li><a href="#cat4" data-href="/data/cat4.jpg">cat4</a></li> -->
 						<li><a href="#cat5" data-href="/data/cat5-sm.jpg">cat5 sm</a></li>
-						<li><a href="#cat6" data-href="/data/cat6.jpg">cat6</a></li>
+						<!-- <li><a href="#cat6" data-href="/data/cat6.jpg">cat6</a></li> -->
+						<li><a href="#fat" data-href="/data/fat-cat.png">fat cat</a></li>
 					</ul>
 				</nav>
 
@@ -46,45 +47,46 @@
 							<ol class="vertical-fields cb-rb-fields">
 								<li>
 									<input type="radio" id="size-sma11" name="size" data-w="192" data-h="192" />
-									<label for="size-sma11">small 1:1 <span class="sm">(192x192)</span></label>
+									<label for="size-sma11">Small 1:1 <span class="sm">(192x192)</span></label>
 								</li>
 								<li>
 									<input type="radio" id="size-sma43" name="size" data-w="256" data-h="192" />
-									<label for="size-sma43">small 4:3 <span class="sm">(256x192)</span></label>
+									<label for="size-sma43">Small 4:3 <span class="sm">(256x192)</span></label>
 								</li>
 								<li>
 									<input type="radio" id="size-sma169" name="size" data-w="256" data-h="144" />
-									<label for="size-sma169">small 16:9 <span class="sm">(256x144)</span></label>
+									<label for="size-sma169">Small 16:9 <span class="sm">(256x144)</span></label>
 								</li>
 								<li>
 									<input type="radio" id="size-med11" name="size" data-w="240" data-h="240" />
-									<label for="size-med11">medium 1:1 <span class="sm">(240x240)</span></label>
+									<label for="size-med11">Medium 1:1 <span class="sm">(240x240)</span></label>
 								</li>
 								<li>
 									<input type="radio" id="size-med43" name="size" data-w="320" data-h="240" />
-									<label for="size-med43">medium 4:3 <span class="sm">(320x240)</span></label>
+									<label for="size-med43">Medium 4:3 <span class="sm">(320x240)</span></label>
 								</li>
 								<li>
 									<input type="radio" id="size-med169" name="size" data-w="320" data-h="180" />
-									<label for="size-med169">medium 16:9 <span class="sm">(320x180)</span></label>
+									<label for="size-med169">Medium 16:9 <span class="sm">(320x180)</span></label>
 								</li>
 								<li>
 									<input type="radio" id="size-lrg11" name="size" data-w="288" data-h="288" />
-									<label for="size-lrg11">large 1:1 <span class="sm">(288x288)</span></label>
+									<label for="size-lrg11">Large 1:1 <span class="sm">(288x288)</span></label>
 								</li>
 								<li>
 									<input type="radio" id="size-lrg43" name="size" data-w="384" data-h="288" />
-									<label for="size-lrg43">large 4:3 <span class="sm">(384x288)</span></label>
+									<label for="size-lrg43">Large 4:3 <span class="sm">(384x288)</span></label>
 								</li>
 								<li>
 									<input type="radio" id="size-lrg169" name="size" data-w="384" data-h="216" />
-									<label for="size-lrg169">large 16:9 <span class="sm">(384x216)</span></label>
+									<label for="size-lrg169">Large 16:9 <span class="sm">(384x216)</span></label>
 								</li>
 							</ol>
-							<ol class="inline-fields">
+							<ol class="vertical-fields">
 								<li>
-									<label for="zoom-range">zoom</label>
-									<input type="range" id="zoom-range" name="zoom-range" />
+									<label for="zoom">Zoom <span class="sm">(30% to 100%)</span></label>
+									<input type="range" id="zoom" name="zoom" min="30" max="100" value="100" />
+									<output for="zoom">100</output>
 								</li>
 							</ol>
 						</fieldset>

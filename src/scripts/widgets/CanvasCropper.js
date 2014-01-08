@@ -168,33 +168,59 @@ CanvasCropper.prototype = {
 	},
 
 	drawCanvas: function() {
-		var x = (this.w - this.srcImg.width) / 2;
-		var y = (this.h - this.srcImg.height) / 2;
-		console.log(x, y);
+		var img = this.srcImg;
+		var dw = img.width;
+		var dh = img.height;
+		var dx = (this.w - dw) / 2;
+		var dy = (this.h - dh) / 2;
+		// console.log(dw, dh, dx, dy);
 		this.context.clearRect(0, 0, this.w, this.h); // clear canvas
-		this.context.drawImage(this.srcImg, x, y);
+		this.context.drawImage(img, dx, dy, dw, dh);
 		this.context.fillStyle = this.options.fillStyle;
 		this.context.fillRect(0, 0, this.w, this.h);
 	},
 
 	drawCropTool: function() {
-		var x = (this.w - this.srcImg.width) / 2;
-		var y = (this.h - this.srcImg.height) / 2;
-		console.log(this.cropData.x + x, this.cropData.y + y);
-		console.log(this.cropData.x - x, this.cropData.y - y);
+		var img = this.srcImg;
+		var dw = img.width;
+		var dh = img.height;
+		var dx = (this.w - dw) / 2;
+		var dy = (this.h - dh) / 2;
+		var sw = this.cropData.w;
+		var sh = this.cropData.h;
+		var sx = this.cropData.x - dx;
+		var sy = this.cropData.y - dy;
+		// console.log(dw, dh, dx, dy);
+		// console.log(sw, sh, sx, sy);
+		// console.log(this.cropData);
 		this.context.strokeRect(this.cropData.x, this.cropData.y, this.cropData.w, this.cropData.h);
-		this.context.drawImage(this.srcImg, this.cropData.x, this.cropData.y, this.cropData.w, this.cropData.h, this.cropData.x, this.cropData.y, this.cropData.w, this.cropData.h);
+		this.context.drawImage(img, sx, sy, sw, sh, this.cropData.x, this.cropData.y, this.cropData.w, this.cropData.h);
 	},
 
 	exportImg: function() {
+		var img = this.srcImg;
+		var dw = img.width;
+		var dh = img.height;
+		var dx = (this.w - dw) / 2;
+		var dy = (this.h - dh) / 2;
+		var sw = this.cropData.w;
+		var sh = this.cropData.h;
+		var sx = this.cropData.x - dx;
+		var sy = this.cropData.y - dy;
+		var isJpg = img.src.indexOf('.jpg') != -1 || img.src.indexOf('.jpeg') != -1;
 		var tempCanvas = document.createElement('canvas');
 		var tempContext = tempCanvas.getContext('2d');
 		var dataUrl;
+		console.log(isJpg);
 
 		tempCanvas.width = this.cropData.w;
 		tempCanvas.height = this.cropData.h;
-		tempContext.drawImage(this.srcImg, this.cropData.x, this.cropData.y, this.cropData.w, this.cropData.h, 0, 0, this.cropData.w, this.cropData.h);
-		dataUrl = tempCanvas.toDataURL('image/jpeg', 0.8);
+		tempContext.drawImage(img, sx, sy, sw, sh, 0, 0, this.cropData.w, this.cropData.h);
+		if (isJpg) {
+			dataUrl = tempCanvas.toDataURL('image/jpeg', 0.8);
+		} else {
+			dataUrl = tempCanvas.toDataURL();
+		}
 
 		this.$xImg.attr({'src': dataUrl});
 

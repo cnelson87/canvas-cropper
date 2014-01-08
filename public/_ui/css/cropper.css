@@ -177,6 +177,8 @@ label span.sm, span.label span.sm { font-size: 12px; font-weight: normal; }
 
 label.disabled { color: #cccccc; }
 
+output { display: inline-block; color: #333333; font-size: 13px; font-weight: bold; line-height: 18px; padding-top: 2px; /* matches input padding-top for vertical alignment */ }
+
 input, select, textarea, button { color: #333333; font-family: Arial, sans-serif; font-size: 13px; vertical-align: top; margin: 0; padding: 0; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; -ms-box-sizing: border-box; -o-box-sizing: border-box; box-sizing: border-box; }
 
 input:invalid, select:invalid, textarea:invalid { box-shadow: none; outline: 0; }
@@ -247,11 +249,11 @@ input.alt-btn:focus, input.alt-btn:hover, input.sm-alt-btn:focus, input.sm-alt-b
 
 /* end buttons */
 /* start misc */
-.form-note { /* note next to an input field */ display: inline-block; color: #666; font-size: 11px; line-height: 15px; margin: 5px 0 0 5px; }
+.form-note { /* note next to an input field */ display: inline-block; color: #999999; font-size: 11px; line-height: 15px; margin: 5px 0 0 5px; }
 
-.form-message { /* message below an input field */ display: block; color: #666; font-size: 11px; line-height: 15px; margin-top: 5px; }
+.form-message { /* message below an input field */ display: block; color: #999999; font-size: 11px; line-height: 15px; margin-top: 5px; }
 
-input + input, input + select, input + textarea, select + input, select + select, select + textarea, textarea + input, textarea + select, textarea + textarea { margin-left: 5px; }
+input + input, input + select, input + textarea, input + output, select + input, select + select, select + textarea, select + output, textarea + input, textarea + select, textarea + textarea, textarea + output { margin-left: 5px; }
 
 /* end misc */
 /*** /basic form elements ***/

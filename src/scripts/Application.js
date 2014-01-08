@@ -15,6 +15,9 @@ var Application = {
 		var $catlinks = $('#catnav').find('a');
 		var imgSrc = $($catlinks[0]).data('href');
 
+		var $inputZoom = $('#zoom');
+		var $outputZoom = $inputZoom.next('output');
+
 		this.canvasCropper = new CanvasCropper($el, {imgSrc:imgSrc});
 
 		$catlinks.on('click', function(e){
@@ -22,6 +25,10 @@ var Application = {
 			var imgSrc = $(this).data('href');
 			self.canvasCropper.setImgSrc(imgSrc);
 		});
+
+		$inputZoom.on('mousemove', function() {
+			$outputZoom.text($inputZoom.val());
+		}).trigger('mousemove');
 
 	}
 
