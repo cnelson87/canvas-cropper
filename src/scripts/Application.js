@@ -14,9 +14,7 @@ var Application = {
 		var $el = $('#canvas-cropper');
 		var $catlinks = $('#catnav').find('a');
 		var imgSrc = $($catlinks[0]).data('href');
-
-		var $inputZoom = $('#zoom');
-		var $outputZoom = $inputZoom.next('output');
+		var $output = $('#size-output');
 
 		this.canvasCropper = new CanvasCropper($el, {imgSrc:imgSrc});
 
@@ -26,9 +24,9 @@ var Application = {
 			self.canvasCropper.setImgSrc(imgSrc);
 		});
 
-		$inputZoom.on('mousemove', function() {
-			$outputZoom.text($inputZoom.val());
-		}).trigger('mousemove');
+		this.$document.on('CanvasCropper:drawCanvas', function(e, data){
+			$output.text('crop size: ' + data.w + ' x ' + data.h);
+		});
 
 	}
 
