@@ -139,6 +139,7 @@ module.exports = function(grunt) {
 		// Watch files for changes
 		'watch': {
 			options: {
+				spawn: false,
 				livereload: '<%= lrPortNum %>'
 			},
 			html: {
@@ -160,6 +161,7 @@ module.exports = function(grunt) {
 		}
 
 	});
+	// end Grunt task config
 
 	// Load task dependencies
 	require('load-grunt-tasks')(grunt);

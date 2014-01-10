@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en">
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+
+	<title>Canvas Cropper</title>
+
+	<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:400,600,700" />
+	<link rel="stylesheet" href="/_ui/css/cropper.css" />
+
+	<script src="/_ui/js/lib/vendor.js"></script>
+	<script src="/_ui/js/cropper.js"></script>
+</head>
+<body class="backbone-page">
+
+<div id="wrapper">
+
+	<header id="header">
+		<div id="header-inner">
+
+		</div>
+	</header>
+
+	<div id="main">
+		<div id="main-inner">
+
+			<div id="content">
+
+				<h1>Canvas Cropper</h1>
+
+
+				<div id="canvas-cropper" class="canvas-cropper">
+
+					<div class="canvas-holder">
+						<canvas width="640" height="480"></canvas>
+					</div>
+					<div class="clear"></div>
+
+					<fieldset>
+						<label for="zoom">Zoom <span class="sm">(32% to 100%)</span></label>
+						<input type="range" id="zoom" name="zoom" min="32" max="100" value="100" step="1" />
+						<output for="zoom">100</output>
+					</fieldset>
+
+					<button>export image</button>
+
+					<br /><br />
+
+					<img src="" alt="" />
+
+				</div>
+		
+
+			</div>
+
+			<div class="clear"></div>
+
+		</div>
+	</div>
+
+	<footer id="footer">
+		<div id="footer-inner">
+
+		</div>
+	</footer>
+
+</div>
+
+</body>
+</html>

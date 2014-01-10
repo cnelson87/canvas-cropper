@@ -27,8 +27,8 @@ var CanvasCropper = function($el, objOptions){
 		this.$currFltr.prop({'checked':true});
 	}
 
-	this.$inputZoom = this.$el.find(this.options.selectorZoomRange);
-	this.$outputZoom = this.$inputZoom.next('output');
+	this.$zoomInput = this.$el.find(this.options.selectorZoomRange);
+	this.$zoomOutput = this.$zoomInput.next('output');
 
 	this.$canvas = this.$el.find(this.options.selectorCanvas);
 	this.canvas = this.$canvas[0];
@@ -38,19 +38,15 @@ var CanvasCropper = function($el, objOptions){
 	this.context.lineWidth = this.options.lineWidth;
 	this.context.fillStyle = this.options.fillStyle;
 
-	this.w = this.canvas.width;
-	this.h = this.canvas.height;
+	this.canvasW = this.canvas.width;
+	this.canvasH = this.canvas.height;
+	this.centerX = this.canvasW / 2;
+	this.centerY = this.canvasH / 2;
 
-	this.centerX = this.w / 2;
-	this.centerY = this.h / 2;
+	this.cropData = {w: 0, h: 0, x: 0, y: 0, adjX: 0, adjY: 0, moveX: 0, moveY: 0, startX: 0, startY: 0};
 
-	this.cropData = {w: 0, h: 0, x: 0, y: 0};
-	this.adjX = this.cropData.x;
-	this.adjY = this.cropData.y;
-
-	this.coords = {};
-
-	this.bDrag = false;
+	this.bDragCanvas = false;
+	this.bDragCropper = false;
 	this.bZoom = false;
 
 	this.zoomLevel = this.options.initialZoomLevel;
@@ -64,10 +60,11 @@ CanvasCropper.prototype = {
 	init: function() {
 		var self = this;
 
-		this.$inputZoom.val(this.zoomLevel);
-		this.$outputZoom.text(this.zoomLevel);
+		this.$zoomInput.val(this.zoomLevel);
+		this.$zoomOutput.text(this.zoomLevel);
 
 		this.bindEvents();
+		this.bindZoomEvents();
 		this.bindCanvasEvents();
 
 		this.initCropData();
@@ -75,8 +72,6 @@ CanvasCropper.prototype = {
 		if (this.options.imgSrc) {
 			this.setImgSrc(this.options.imgSrc);
 		}
-
-
 
 	},
 
@@ -94,22 +89,27 @@ CanvasCropper.prototype = {
 			self.drawCanvas();
 		});
 
-		this.$inputZoom
+	},
+
+	bindZoomEvents: function() {
+		var self = this;
+
+		this.$zoomInput
 			.on('change', function(e){
 				//console.log('change');
-				self.zoomLevel = self.$inputZoom.val();
-				self.$outputZoom.text(self.zoomLevel);
+				self.zoomLevel = self.$zoomInput.val();
+				self.$zoomOutput.text(self.zoomLevel);
 				self.drawCanvas();
 				
 			})
 			.on('mousemove', function(e){
 				if (self.bZoom) {
-					self.$inputZoom.trigger('change');
+					self.$zoomInput.trigger('change');
 				}
 			})
 			.on('mousedown', function(e){
 				self.bZoom = true;
-				self.$inputZoom.focus();
+				self.$zoomInput.focus();
 			})
 			.on('mouseup', function(e){
 				self.bZoom = false;
@@ -127,9 +127,11 @@ CanvasCropper.prototype = {
 				var mouseX = Math.floor(e.pageX - canvasOffset.left);
 				var mouseY = Math.floor(e.pageY - canvasOffset.top);
 
-				if (self.bDrag) {
-					self.cropData.x = mouseX - self.adjX;
-					self.cropData.y = mouseY - self.adjY;
+				if (self.bDragCropper) {
+					//console.log('bDragCropper');
+
+					self.cropData.x = mouseX - self.cropData.adjX;
+					self.cropData.y = mouseY - self.cropData.adjY;
 
 					// make sure cropData coords aren't outside canvas boundary
 					if (self.cropData.x < 0) {
@@ -138,14 +140,23 @@ CanvasCropper.prototype = {
 					if (self.cropData.y < 0) {
 						self.cropData.y = 0;
 					}
-					if (self.cropData.x + self.cropData.w > self.w) {
-						self.cropData.x = self.w - self.cropData.w;
+					if (self.cropData.x + self.cropData.w > self.canvasW) {
+						self.cropData.x = self.canvasW - self.cropData.w;
 					}
-					if (self.cropData.y + self.cropData.h > self.h) {
-						self.cropData.y = self.h - self.cropData.h;
+					if (self.cropData.y + self.cropData.h > self.canvasH) {
+						self.cropData.y = self.canvasH - self.cropData.h;
 					}
 
 					self.drawCanvas();
+
+				} else if (self.bDragCanvas) {
+					//console.log('bDragCanvas');
+					self.cropData.moveX = (self.cropData.startX - mouseX) * -1;
+					self.cropData.moveY = (self.cropData.startY - mouseY) * -1;
+					console.log(self.cropData.startX,self.cropData.startY,self.cropData.moveX,self.cropData.moveY);
+
+					self.drawCanvas();
+
 				}
 
 			})
@@ -157,25 +168,44 @@ CanvasCropper.prototype = {
 
 				if (mouseX > self.cropData.x && mouseX < self.cropData.x + self.cropData.w && 
 					mouseY > self.cropData.y && mouseY < self.cropData.y + self.cropData.h) {
-					self.bDrag = true;
-					self.adjX = mouseX - self.cropData.x;
-					self.adjY = mouseY - self.cropData.y;
+					self.bDragCropper = true;
+					self.bDragCanvas = false;
+					self.cropData.adjX = mouseX - self.cropData.x;
+					self.cropData.adjY = mouseY - self.cropData.y;
+				} else {
+					self.bDragCropper = false;
+					self.bDragCanvas = true;
+					self.cropData.startX = mouseX;
+					self.cropData.startY = mouseY;
 				}
 
 			})
 			.on('mouseup', function(e){
 				//console.log('mouseup');
-				self.bDrag = false;
-				self.adjX = self.cropData.x;
-				self.adjY = self.cropData.y;
+				self.deactivateCanvas();
 			})
 			.on('mouseout', function(e){
 				//console.log('mouseout');
-				self.bDrag = false;
-				self.adjX = self.cropData.x;
-				self.adjY = self.cropData.y;
+				self.deactivateCanvas();
 			});
 
+	},
+
+	deactivateCanvas: function() {
+		if (this.bDragCanvas) {
+			// this.cropData.adjX = this.cropData.x + this.cropData.moveX;
+			// this.cropData.adjXY = this.cropData.x + this.cropData.moveY;
+		} else {
+			
+		}
+		this.cropData.adjX = this.cropData.x;
+		this.cropData.adjY = this.cropData.y;
+		this.cropData.moveX = 0;
+		this.cropData.moveY = 0;
+		this.cropData.startX = 0;
+		this.cropData.startY = 0;
+		this.bDragCanvas = false;
+		this.bDragCropper = false;
 	},
 
 	initCropData: function() {
@@ -183,15 +213,19 @@ CanvasCropper.prototype = {
 		this.cropData.h = this.$currFltr.data('h');
 		this.cropData.x = this.centerX - (this.cropData.w / 2);
 		this.cropData.y = this.centerY - (this.cropData.h / 2);
-		this.adjX = this.cropData.x;
-		this.adjY = this.cropData.y;
+		this.cropData.adjX = this.cropData.x;
+		this.cropData.adjY = this.cropData.y;
+		this.cropData.moveX = 0;
+		this.cropData.moveY = 0;
+		this.cropData.startX = 0;
+		this.cropData.startY = 0;
 	},
 
 	setImgSrc: function(imgSrc) {
 		var self = this;
 		var newImg = new Image();
 		newImg.onload = function(){
-			self.srcImg = newImg;
+			self.sourceImg = newImg;
 			self.drawCanvas();
 		};
 		newImg.src = imgSrc;
@@ -200,11 +234,11 @@ CanvasCropper.prototype = {
 	drawCanvas: function() {
 		var line = this.options.lineWidth;
 		var zoom = this.zoomLevel / 100.0;
-		var img = this.srcImg;
+		var img = this.sourceImg;
 		var dw = Math.floor(img.width * zoom);
 		var dh = Math.floor(img.height * zoom);
-		var dx = Math.floor((this.w - dw) / 2);
-		var dy = Math.floor((this.h - dh) / 2);
+		var dx = Math.floor((this.canvasW - dw) / 2) + this.cropData.moveX;
+		var dy = Math.floor((this.canvasH - dh) / 2) + this.cropData.moveY;
 		var sw, sh, sx, sy;
 
 		if (this.cropData.x < dx) {
@@ -225,9 +259,9 @@ CanvasCropper.prototype = {
 		sx = Math.floor((this.cropData.x - dx) / zoom);
 		sy = Math.floor((this.cropData.y - dy) / zoom);
 
-		this.context.clearRect(0, 0, this.w, this.h);
+		this.context.clearRect(0, 0, this.canvasW, this.canvasH);
 		this.context.drawImage(img, dx, dy, dw, dh);
-		this.context.fillRect(0, 0, this.w, this.h);
+		this.context.fillRect(0, 0, this.canvasW, this.canvasH);
 		this.context.strokeRect(this.cropData.x - line, this.cropData.y - line, this.cropData.w + line * 2, this.cropData.h + line * 2);
 		this.context.drawImage(img, sx, sy, sw, sh, this.cropData.x, this.cropData.y, this.cropData.w, this.cropData.h);
 
@@ -236,7 +270,7 @@ CanvasCropper.prototype = {
 	},
 
 	exportImg: function() {
-		var isJpg = this.srcImg.src.indexOf('.jpg') != -1 || this.srcImg.src.indexOf('.jpeg') != -1;
+		var isJpg = this.sourceImg.src.indexOf('.jpg') != -1 || this.sourceImg.src.indexOf('.jpeg') != -1;
 		var tempCanvas = document.createElement('canvas');
 		var tempContext = tempCanvas.getContext('2d');
 		var dataUrl;
