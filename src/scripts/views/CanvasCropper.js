@@ -192,8 +192,7 @@ var CanvasCropper = Backbone.View.extend({
 			this.moveData.moveY = (this.moveData.startY - mouseY) * -1;
 
 			if (this.bDragTab) {
-				console.log('bDragTab');
-				console.log(this.cropData.hh + this.moveData.moveY);
+				//console.log('bDragTab');
 
 				this.cropData.h = this.cropData.hh + this.moveData.moveY;
 
@@ -256,7 +255,6 @@ var CanvasCropper = Backbone.View.extend({
 			mouseY > this.tabData.y && mouseY < this.tabData.y + this.tabData.h) {
 			//activate tab drag
 			this.bDragTab = true;
-			console.log(this.cropData.h);
 
 		} else if (mouseX > this.cropData.x && mouseX < this.cropData.x + this.cropData.w && 
 			mouseY > this.cropData.y && mouseY < this.cropData.y + this.cropData.h) {
