@@ -7,7 +7,8 @@ var CanvasCropper = Backbone.View.extend({
 
 	sourceImg: null,
 
-	cropData: {w: 0, h: 0, x: 0, y: 0, xx: 0, yy: 0},
+	tabData: {w: 0, h: 0, x: 0, y: 0, yy: 0},
+	cropData: {w: 0, h: 0, x: 0, y: 0, ww: 0, hh: 0, xx: 0, yy: 0},
 	imageData: {w: 0, h: 0, x: 0, y: 0},
 	moveData: {startX: 0, startY: 0, moveX: 0, moveY: 0},
 
@@ -34,6 +35,8 @@ var CanvasCropper = Backbone.View.extend({
 			fillStyle: 'rgba(0,0,0,0.5)',
 			strokeStyle: '#f00',
 			lineWidth: 2,
+			tabWidth: 30,
+			tabHeight: 20,
 			cropWidth: 100,
 			cropHeight: 100,
 			initialZoomLevel: 100
@@ -59,8 +62,9 @@ var CanvasCropper = Backbone.View.extend({
 		this.currCenterX = this.centerX;
 		this.currCenterY = this.centerY;
 
-		this.bDragCanvas = false;
+		this.bDragTab = false;
 		this.bDragCropper = false;
+		this.bDragCanvas = false;
 		this.bCanvasActive = false;
 		this.bZoom = false;
 
@@ -92,6 +96,8 @@ var CanvasCropper = Backbone.View.extend({
 		this.cropData.h = this.options.cropHeight;
 		this.cropData.x = this.centerX - (this.cropData.w / 2); //centered horiz
 		this.cropData.y = this.centerY - (this.cropData.h / 2); //centered vert
+		this.cropData.ww = this.cropData.w; //reference to original w
+		this.cropData.hh = this.cropData.h; //reference to original h
 		this.cropData.xx = this.cropData.x; //reference to original x
 		this.cropData.yy = this.cropData.y; //reference to original y
 
@@ -105,6 +111,10 @@ var CanvasCropper = Backbone.View.extend({
 		this.moveData.moveX = 0;
 		this.moveData.moveY = 0;
 
+		this.tabData.w = this.options.tabWidth;
+		this.tabData.h = this.options.tabHeight;
+		this.syncTabData();
+
 		this.render();
 	},
 
@@ -113,6 +123,7 @@ var CanvasCropper = Backbone.View.extend({
 		this.$zoomOutput.text(this.zoomLevel);
 		this.updateZoomData();
 		this.checkCropData();
+		this.syncTabData();
 		this.render();
 	},
 	onZoomMove: function() {
@@ -159,6 +170,16 @@ var CanvasCropper = Backbone.View.extend({
 
 	},
 
+	syncTabData: function() {
+		this.tabData.x = this.cropData.x + (this.cropData.w / 2) - (this.tabData.w / 2);
+		this.tabData.y = this.cropData.y + this.cropData.h - (this.tabData.h / 2);
+		this.tabData.yy = this.tabData.y; //reference to original y
+
+		this.tempCanvas.width = this.cropData.w;
+		this.tempCanvas.height = this.cropData.h;
+
+	},
+
 	onCanvasMousemove: function(e) {
 		//console.log('onMousemove');
 		var canvasOffset = this.$canvas.offset();
@@ -170,7 +191,13 @@ var CanvasCropper = Backbone.View.extend({
 			this.moveData.moveX = (this.moveData.startX - mouseX) * -1;
 			this.moveData.moveY = (this.moveData.startY - mouseY) * -1;
 
-			if (this.bDragCropper) {
+			if (this.bDragTab) {
+				console.log('bDragTab');
+				console.log(this.cropData.hh + this.moveData.moveY);
+
+				this.cropData.h = this.cropData.hh + this.moveData.moveY;
+
+			} else if (this.bDragCropper) {
 				//console.log('bDragCropper');
 
 				this.cropData.x = this.cropData.xx + this.moveData.moveX;
@@ -205,6 +232,7 @@ var CanvasCropper = Backbone.View.extend({
 			}
 
 			this.checkCropData();
+			this.syncTabData();
 			this.render();
 
 		}
@@ -222,19 +250,22 @@ var CanvasCropper = Backbone.View.extend({
 		this.moveData.moveX = mouseX;
 		this.moveData.moveY = mouseY;
 
-		if (mouseX > this.cropData.x && mouseX < this.cropData.x + this.cropData.w && 
-			mouseY > this.cropData.y && mouseY < this.cropData.y + this.cropData.h) {
+		this.bCanvasActive = true;
 
+		if (mouseX > this.tabData.x && mouseX < this.tabData.x + this.tabData.w && 
+			mouseY > this.tabData.y && mouseY < this.tabData.y + this.tabData.h) {
+			//activate tab drag
+			this.bDragTab = true;
+			console.log(this.cropData.h);
+
+		} else if (mouseX > this.cropData.x && mouseX < this.cropData.x + this.cropData.w && 
+			mouseY > this.cropData.y && mouseY < this.cropData.y + this.cropData.h) {
+			//activate cropper drag
 			this.bDragCropper = true;
-			this.bDragCanvas = false;
-			this.bCanvasActive = true;
 
 		} else {
-
-			this.bDragCropper = false;
+			//activate canvas drag
 			this.bDragCanvas = true;
-			this.bCanvasActive = true;
-
 		}
 
 	},
@@ -243,9 +274,8 @@ var CanvasCropper = Backbone.View.extend({
 		
 		if (this.bCanvasActive) {
 
-			if (this.bDragCanvas) {
-				this.centerX = this.currCenterX;
-				this.centerY = this.currCenterY;
+			if (this.bDragTab) {
+				this.cropData.hh = this.cropData.h;
 			}
 
 			if (this.bDragCropper) {
@@ -253,13 +283,19 @@ var CanvasCropper = Backbone.View.extend({
 				this.cropData.yy = this.cropData.y;
 			}
 
+			if (this.bDragCanvas) {
+				this.centerX = this.currCenterX;
+				this.centerY = this.currCenterY;
+			}
+
 			this.moveData.startX = 0;
 			this.moveData.startY = 0;
 			this.moveData.moveX = 0;
 			this.moveData.moveY = 0;
 
-			this.bDragCanvas = false;
+			this.bDragTab = false;
 			this.bDragCropper = false;
+			this.bDragCanvas = false;
 			this.bCanvasActive = false;
 
 		}
@@ -281,6 +317,11 @@ var CanvasCropper = Backbone.View.extend({
 		this.context.fillRect(0, 0, this.canvasW, this.canvasH);
 		this.context.strokeRect(this.cropData.x - 1, this.cropData.y - 1, this.cropData.w + 2, this.cropData.h + 2);
 		this.context.drawImage(this.tempCanvas, 0, 0, this.cropData.w, this.cropData.h, this.cropData.x, this.cropData.y, this.cropData.w, this.cropData.h);
+
+		//add drag tab
+		this.context.fillStyle = this.options.strokeStyle;
+		this.context.fillRect(this.tabData.x, this.tabData.y, this.tabData.w, this.tabData.h);
+		this.context.fillStyle = this.options.fillStyle;
 
 	},
 
