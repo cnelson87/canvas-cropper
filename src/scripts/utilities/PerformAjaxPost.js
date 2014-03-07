@@ -1,7 +1,7 @@
-
 /**
-*	returns an Ajax POST response using deferred, url & data are required, dataType is optional
-**/
+ *	returns an Ajax POST response using deferred, url & data are required, dataType is optional
+ */
+
 var PerformAjaxPost = function(url, data, dataType) {
 	return $.ajax({
 		type: 'POST',
