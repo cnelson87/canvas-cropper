@@ -298,106 +298,147 @@ textarea + input, textarea + select, textarea + textarea, textarea + output {
 
 /* text inputs, selects, textareas */
 
-ol.horizontal-fields,
-ol.vertical-fields,
-ol.inline-fields {
+ol.horizontal-fields, ul.horizontal-fields,
+ol.vertical-fields, ul.vertical-fields,
+ol.inline-fields, ul.inline-fields,
+ol.column-fields, ul.column-fields {
 	list-style: none;
 	margin: 0;
 }
-	ol.horizontal-fields > li,
-	ol.vertical-fields > li,
-	ol.inline-fields > li {
+	.horizontal-fields > li,
+	.vertical-fields > li,
+	.inline-fields > li,
+	.column-fields > li {
 		min-height: 24px; /* matches input height */
 		margin: 0 0 8px 0;
 	}
 
-	ol.horizontal-fields > li > label,
-	ol.horizontal-fields > li > span.label {
+	/* side-by-side label / input */
+	.horizontal-fields > li > label,
+	.horizontal-fields > li > span.label {
 		width: 120px;
 		text-align: right;
 		margin-right: 5px;
 	}
-	ol.horizontal-fields.label-width-short > li > label,
-	ol.horizontal-fields.label-width-short > li > span.label,
-	ol.horizontal-fields > li > label.width-short,
-	ol.horizontal-fields > li > span.label.width-short {
+	.horizontal-fields.label-width-short > li > label,
+	.horizontal-fields.label-width-short > li > span.label,
+	.horizontal-fields > li > label.width-short,
+	.horizontal-fields > li > span.label.width-short {
 		width: 80px;
 	}
-	ol.horizontal-fields.label-width-long > li > label,
-	ol.horizontal-fields.label-width-long > li > span.label,
-	ol.horizontal-fields > li > label.width-long,
-	ol.horizontal-fields > li > span.label.width-short {
+	.horizontal-fields.label-width-long > li > label,
+	.horizontal-fields.label-width-long > li > span.label,
+	.horizontal-fields > li > label.width-long,
+	.horizontal-fields > li > span.label.width-short {
 		width: 160px;
 	}
-	ol.horizontal-fields.label-width-auto > li > label,
-	ol.horizontal-fields.label-width-auto > li > span.label,
-	ol.horizontal-fields > li > label.width-auto,
-	ol.horizontal-fields > li > span.label.width-short {
+	.horizontal-fields.label-width-auto > li > label,
+	.horizontal-fields.label-width-auto > li > span.label,
+	.horizontal-fields > li > label.width-auto,
+	.horizontal-fields > li > span.label.width-short {
 		width: auto;
 	}
-	ol.horizontal-fields.label-align-left > li > label,
-	ol.horizontal-fields.label-align-left > li > span.label,
-	ol.horizontal-fields > li > label.align-left,
-	ol.horizontal-fields > li > span.label.align-left {
+	.horizontal-fields.label-align-left > li > label,
+	.horizontal-fields.label-align-left > li > span.label,
+	.horizontal-fields > li > label.align-left,
+	.horizontal-fields > li > span.label.align-left {
 		text-align: left;
 	}
-	ol.horizontal-fields div.form-message {
+
+	/* line-up .form-message with text inputs (matches label width + margin) */
+	.horizontal-fields div.form-message {
 		margin-left: 130px; /* matches label width + margin */
 	}
-	ol.horizontal-fields.label-width-short div.form-message {
+	.horizontal-fields.label-width-short div.form-message {
 		margin-left: 90px;
 	}
-	ol.horizontal-fields.label-width-long div.form-message {
+	.horizontal-fields.label-width-long div.form-message {
 		margin-left: 170px;
 	}
-	ol.horizontal-fields ol.cb-rb-fields {
-		display: inline-block;
-		vertical-align: top;
-		margin: 2px 0 -8px 0;
-	}
 
-	ol.vertical-fields > li > label,
-	ol.vertical-fields > li > span.label {
+	/* stacked label / input */
+	.vertical-fields > li > label,
+	.vertical-fields > li > span.label {
 		display: block;
 		margin: 0 0 2px 0;
 	}
 
-	ol.inline-fields > li {
+	.inline-fields > li {
 		display: inline-block;
 		margin-right: 10px;
 	}
-	ol.inline-fields > li.full-width {
+	.inline-fields > li.full-width {
 		display: block;
 		margin-right: 0;
 	}
-	ol.inline-fields > li > label,
-	ol.inline-fields > li > span.label {
+	.inline-fields > li > label,
+	.inline-fields > li > span.label {
 		margin-right: 5px;
+	}
+
+	/* label / input in pseudo columns */
+	.column-fields > li {
+		width: 50%;
+		padding-right: 1em;
+		-webkit-box-sizing: border-box;
+		-moz-box-sizing: border-box;
+		-ms-box-sizing:border-box;
+		-o-box-sizing:border-box;
+		box-sizing: border-box;
+	}
+	.column-fields > li:nth-child(odd) {
+		float: left;
+		clear: left;
+	}
+	.column-fields > li:nth-child(even) {
+		float: right;
+		clear: right;
 	}
 
 /* checkbox and radio inputs */
 
 /* use with .vertical-fields or .inline-fields */
-ol.cb-rb-fields {
+ol.cb-rb-fields, ul.cb-rb-fields {
 	list-style: none;
 	margin: 0;
 }
-	ol.cb-rb-fields > li {
+	.cb-rb-fields > li {
 		min-height: 18px;
 		margin: 0 0 8px 0;
 	}
-	ol.cb-rb-fields input[type=checkbox],
-	ol.cb-rb-fields input[type=radio] {
+	.cb-rb-fields input[type=checkbox],
+	.cb-rb-fields input[type=radio] {
 		float: left;
 	}
-	ol.cb-rb-fields > li > label {
+	.cb-rb-fields > li > label {
 		display: block;
 		margin: 0 0 0 24px;
 	}
 
-	ol.inline-fields.cb-rb-fields > li {
+	.vertical-fields.cb-rb-fields > li > label {
+		margin: 0 0 8px 20px;
+	}
+
+	.inline-fields.cb-rb-fields > li {
 		display: inline-block;
 		margin-right: 10px;
+	}
+
+	/* line-up nested .cb-rb-fields with text inputs (matches label width + margin) */
+	.horizontal-fields .cb-rb-fields {
+		display: inline-block;
+		vertical-align: top;
+		margin: 2px 0 -8px 0;
+	}
+ 
+	.horizontal-fields > li > .cb-rb-fields:first-child {
+		margin-left: 128px;
+	}
+	.horizontal-fields.label-width-short > li > .cb-rb-fields:first-child {
+		margin-left: 88px;
+	}
+	.horizontal-fields.label-width-long > li > .cb-rb-fields:first-child {
+		margin-left: 168px;
 	}
 
 /* fieldset/div wrapper for form buttons */
