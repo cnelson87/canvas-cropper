@@ -15,7 +15,6 @@ html, body {
 	margin: 0 auto;
 	padding: 80px 0;
 	position: relative;
-	@include prefix(box-sizing, border-box);
 }
 
 #header {
@@ -33,7 +32,6 @@ html, body {
 		margin: 0 auto;
 		padding: 20px;
 		position: relative;
-		@include prefix(box-sizing, border-box);
 	}
 
 }
@@ -53,7 +51,6 @@ html, body {
 		margin: 0 auto;
 		padding: 20px;
 		position: relative;
-		@include prefix(box-sizing, border-box);
 	}
 
 }
@@ -73,7 +70,6 @@ html, body {
 		padding: 0 20px;
 		position: relative;
 		overflow: scroll;
-		@include prefix(box-sizing, border-box);
 
 		#content {
 			width: 100%;

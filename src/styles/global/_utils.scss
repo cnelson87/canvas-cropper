@@ -9,9 +9,9 @@
 html.no-js .hide-no-js {display: none;}
 html.js-enabled .hide-js-enabled {display: none;}
 
-big, .big {font-size: 16px;}
+big, .big {font-size: 1.2em;}
 
-small, .small, .note {font-size: 10px;}
+small, .small, .note {font-size: 0.9em;}
 
 .alert, .error, .important, .required {
 	color: $error-color;
@@ -41,11 +41,12 @@ small, .small, .note {font-size: 10px;}
 .nowrap {white-space: nowrap;}
 
 .normal {
+	font-style: normal;
 	font-weight: normal;
 	text-transform: none;
 }
 
-.first-line {font-size: 14px;}
+.first-line {font-size: 1.2em;}
 
 .lower {text-transform: lowercase;}
 
@@ -54,17 +55,6 @@ small, .small, .note {font-size: 10px;}
 .underline {text-decoration: underline;}
 
 .strike {text-decoration: line-through;}
-
-hr, div.hr {
-	clear: both;
-	height: 1px;
-	border-top: 1px solid $border-color;
-	margin-bottom: 1.5em;
-	overflow: hidden;
-}
-	div.hr hr {
-		display: none;
-	}
 
 /*** /general styles ***/
 
@@ -103,7 +93,7 @@ ul.inline, ol.inline {
 
 img.block {
 	display: block;
-	margin: 0 0 12px 0;
+	margin: 0 0 1.0em 0;
 }
 
 img.inline {
@@ -114,12 +104,12 @@ img.inline {
 
 img.inset-left {
 	float: left;
-	margin: 0 20px 12px 0;
+	margin: 0 20px 1.0em 0;
 }
 
 img.inset-right {
 	float: right;
-	margin: 0 0 12px 20px;
+	margin: 0 0 1.0em 20px;
 }
 
 /* generic img classes, no inherent style */
