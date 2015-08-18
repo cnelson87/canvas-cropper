@@ -1,10 +1,13 @@
-/*
-/* LAYOUT
-/*-----------------------------------------------------*/
+//
+// LAYOUT
+// -----------------------------------------------------
+
 
 html, body {
-	height: 100%;
+	width: 100%;
+	max-width: 100%;
 	min-height: 100%;
+	overflow-x: hidden;
 }
 
 #wrapper {
@@ -22,6 +25,7 @@ html, body {
 	background: #dedede;
 	position: fixed;
 	left: 0;
+	right: 0;
 	top: 0;
 	z-index: 3;
 
@@ -41,6 +45,7 @@ html, body {
 	background: #dedede;
 	position: fixed;
 	left: 0;
+	right: 0;
 	bottom: 0;
 	z-index: 2;
 
@@ -69,32 +74,13 @@ html, body {
 		margin: 0 auto;
 		padding: 0 20px;
 		position: relative;
-		overflow: scroll;
 
 		#content {
 			width: 100%;
 			min-height: 400px;
 			padding: 40px 0;
 			position: relative;
-		}
-
-		#subcol {
-			width: 200px;
-			min-height: 400px;
-			padding: 94px 0 40px 0;
-			position: relative;
-		}
-
-		&.twocols {
-
-			#content {
-				float: left;
-				width: 720px;
-			}
-			#subcol {
-				float: right;
-			}
-
+			@include clearfix();
 		}
 
 	}

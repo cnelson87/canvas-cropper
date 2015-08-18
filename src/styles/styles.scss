@@ -1,11 +1,13 @@
 
-//global styles
-@import "global/vars";
-@import "global/mixins";
-@import "global/base";
-@import "global/utils";
-@import "global/forms";
-@import "global/layout";
+// configuration
+@import "./config/variables";
+@import "./config/mixins";
 
-//custom components
-@import "custom/canvascropper";
+// global styles
+@import "./global/base";
+@import "./global/utilities";
+@import "./global/forms";
+@import "./global/layout";
+
+// specific views
+@import "./views/canvascropper";

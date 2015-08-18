@@ -1,6 +1,6 @@
-/*
-/* FORM ELEMENTS
-/*-----------------------------------------------------*/
+//
+// FORMS
+// -----------------------------------------------------
 
 /**
 /*	basic form elements
@@ -16,7 +16,7 @@ legend {
 
 label, span.label {
 	display: inline-block;
-	color: $text-dark-gray;
+	color: $gray-dark;
 	font-size: 14px;
 	font-weight: bold;
 	line-height: 16px;
@@ -27,12 +27,12 @@ label, span.label {
 	}
 }
 label.disabled {
-	color: $text-light-gray;
+	color: $gray-light;
 }
 
 output {
 	display: inline-block;
-	color: $text-dark-gray;
+	color: $gray-dark;
 	font-size: 14px;
 	font-weight: bold;
 	line-height: 16px;
@@ -40,7 +40,7 @@ output {
 }
 
 input, select, textarea, button {
-	color: $text-dark-gray;
+	color: $gray-dark;
 	font-family: Arial, sans-serif;
 	font-size: 14px;
 	line-height: 16px;
@@ -60,19 +60,19 @@ textarea:invalid {
 }
 
 ::-webkit-input-placeholder {
-	color: $text-med-gray;
+	color: $gray-med;
 	opacity: 1;
 }
 ::-moz-placeholder {
-	color: $text-med-gray;
+	color: $gray-med;
 	opacity: 1;
 }
 :-ms-input-placeholder {
-	color: $text-med-gray;
+	color: $gray-med;
 	opacity: 1;
 }
 ::input-placeholder {
-	color: $text-med-gray;
+	color: $gray-med;
 	opacity: 1;
 }
 
@@ -203,7 +203,7 @@ input[type=radio] {
 		cursor: default;
 
 		& + label {
-			color: $text-light-gray;
+			color: $gray-light;
 		}
 
 	}
@@ -247,7 +247,7 @@ button {
 	border-radius: 3px;
 	padding: 4px 12px;
 	overflow: visible; // old IE width fix, no affect on other browsers
-	@include prefix(transition, 'color .2s, background-color .2s');
+	transition: color 0.2s, background-color 0.2s;
 
 	&:focus, &:hover {
 		background: #dedede;
@@ -295,14 +295,14 @@ button.sm-alt-btn:focus, button.sm-alt-btn:hover {
 
 .form-note { /* note next to an input field */
 	display: inline-block;
-	color: $text-med-gray;
+	color: $gray-med;
 	font-size: 11px;
 	line-height: 15px;
 	margin: 5px 0 0 5px;
 }
 .form-message { /* message below an input field */
 	display: block;
-	color: $text-med-gray;
+	color: $gray-med;
 	font-size: 11px;
 	line-height: 15px;
 	margin-top: 5px;

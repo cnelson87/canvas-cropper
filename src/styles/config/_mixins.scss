@@ -1,0 +1,40 @@
+//
+// MIXINS
+// -----------------------------------------------------
+
+
+@mixin accelerate() {
+	transform: translate3d(0,0,0);
+	backface-visibility: hidden;
+	perspective: 1000;
+}
+
+@mixin clearfix {
+	&:after {
+		content: "";
+		display: table;
+		clear: both;
+	}
+}
+
+@mixin hidetext {
+	text-indent: 200%;
+	white-space: nowrap;
+	overflow: hidden;
+ }
+
+
+@mixin offscreen {
+	display: block;
+	position: fixed;
+	left: -9999px;
+ }
+
+
+// Gradients
+@mixin background-linear-gradient($from, $to) {
+	background-color: $from;
+	@if $to != $from {
+		background-image: linear-gradient($from, $to);
+	}
+}

@@ -1,17 +1,21 @@
 
 module.exports = function(grunt) {
 
-	var path = require('path');
-	var handleify = require('handleify');
+	'use strict';
+
+	var path			= require('path');
+	var cwd				= process.cwd();
+	var pkg				= grunt.file.readJSON('package.json');
+	var remapify		= require('remapify');
+
 
 	// Project configuration.
 	grunt.initConfig({
 
-		// Metadata
-		pkg: grunt.file.readJSON('package.json'),
-		// pkgName: '<%= pkg.name %>',
-		// pkgDesc: '<%= pkg.description %>',
-		fileName: '<%= pkg.abbr %>',
+		// Pkg data
+		pkg				: pkg,
+		pkgName: '<%= pkg.name %>',
+		pkgDesc: '<%= pkg.description %>',
 		metaTitle: '<%= pkg.title %>',
 		portNum : '<%= pkg.portNumber %>',
 		lrPortNum : '<%= pkg.livereloadPortNum %>',
@@ -36,10 +40,11 @@ module.exports = function(grunt) {
 		outputImages	: '<%= outputAssets %>/img',
 
 
-		// Run web server
+		// Start a connect web server
 		'connect': {
 			dev: {
 				options: {
+					hostname: '*',
 					port: '<%= portNum %>',
 					base: '<%= sitePath %>/',
 					livereload: '<%= lrPortNum %>'
@@ -48,15 +53,41 @@ module.exports = function(grunt) {
 		},
 
 		// Compile javascript modules
-		'browserify2': {
+		'browserify': {
 			compile: {
-				entry: '<%= sourceScripts %>/initialize.js',
-				compile: '<%= outputScripts %>/<%= fileName %>.js',
-				// Precompile Handlebars templates
-				beforeHook: function(bundle) {
-					bundle.transform(handleify);
-				},
-				debug: true
+				src: '<%= sourceScripts %>/initialize.js',
+				dest: '<%= outputScripts %>/<%= pkgName %>.js',
+				options: {
+					preBundleCB: function(b) {
+						b.plugin(remapify, [
+							{
+								cwd: './src/templates',
+								src: './**/*.hbs',
+								expose: 'templates'
+							},
+							{
+								cwd: './src/scripts/config',
+								src: './**/*.js',
+								expose: 'config'
+							},
+							{
+								cwd: './src/scripts/utilities',
+								src: './**/*.js',
+								expose: 'utilities'
+							},
+							{
+								cwd: './src/scripts/widgets',
+								src: './**/*.js',
+								expose: 'widgets'
+							}
+						]);
+					},
+					browserifyOptions: {
+						extensions: ['.hbs'],
+						fullPaths: false
+					},
+					debug: true
+				}
 			}
 		},
 
@@ -66,7 +97,7 @@ module.exports = function(grunt) {
 				options: {
 					globals: {
 						"meta-title": "<%= metaTitle %>",
-						"file-name": "<%= fileName %>"
+						"file-name": "<%= pkgName %>"
 					},
 					includesDir: '<%= sourceIncludes %>'
 				},
@@ -82,16 +113,16 @@ module.exports = function(grunt) {
 		// Concatenates script files into a single file
 		'concat': {
 			options: {
-				//separator: '\n;\n'
-				separator: '\n'
+				separator: '\n\n'
 			},
 			scripts: {
 				src: [
 					'<%= sourceVendor %>/modernizr.custom.min.js',
 					'<%= sourceVendor %>/jquery.min.js',
 					'<%= sourceVendor %>/jquery-ui.min.js',
-					'<%= sourceVendor %>/lodash.min.js',
+					'<%= sourceVendor %>/underscore.min.js',
 					'<%= sourceVendor %>/backbone.min.js',
+					'<%= sourceVendor %>/backbone-super.min.js',
 					'<%= sourceVendor %>/class.js',
 					'<%= sourceScripts %>/shims/classList.js'
 				],
@@ -104,35 +135,48 @@ module.exports = function(grunt) {
 			options: {
 				// options here to override JSHint defaults
 				globals: {
-					$: true,
-					_: true,
-					jQuery: true,
-					Backbone: true,
-					Modernizr: true,
-					alert: true,
-					console: true,
-					module: true,
-					document: true
+					'alert': true,
+					'console': true,
+					'document': true,
+					'module': true,
+					'require': true,
+					'window': true,
+					'Modernizr': true,
+					'jQuery': true,
+					'$': true,
+					'_': true,
+					'Backbone': true
 				}
 			},
 			files: [
 				'<%= sourceScripts %>/**/*.js',
-				'!<%= sourceVendor %>/**/*',
-				'!Gruntfile.js'
+				'!<%= sourceScripts %>/shims/classList.js'
 			]
 		},
 
-		// Compile sass to css
+		// Compile Sass to CSS
 		'sass': {
 			compile: {
 				options: {
-					//style: 'expanded',
-					style: 'compact',
-					debug: false
+					style: 'expanded'
 				},
 				files: [{
 					src: '<%= sourceStyles %>/styles.scss',
-					dest: '<%= outputStyles %>/<%= fileName %>.css'
+					dest: '<%= outputStyles %>/<%= pkgName %>.css'
+				}]
+			}
+		},
+
+		// Add vendor-prefixed CSS properties
+		'autoprefixer': {
+			compile: {
+				options: {
+					browsers: ['last 2 versions', 'ie 9'],
+					map: true
+				},
+				files: [{
+					src: '<%= outputStyles %>/<%= pkgName %>.css',
+					dest: '<%= outputStyles %>/<%= pkgName %>.css'
 				}]
 			}
 		},
@@ -149,15 +193,15 @@ module.exports = function(grunt) {
 			},
 			scripts: {
 				files: '<%= sourceScripts %>/**/*.js',
-				tasks: ['jshint', 'browserify2']
+				tasks: ['jshint', 'browserify']
 			},
 			styles: {
-				files: '<%= sourceStyles %>/**/*.*',
-				tasks: ['sass']
+				files: '<%= sourceStyles %>/**/*.scss',
+				tasks: ['sass', 'autoprefixer']
 			},
 			templates: {
 				files: '<%= sourceTemplates %>/**/*.hbs',
-				tasks: ['browserify2']
+				tasks: ['browserify']
 			}
 		}
 
@@ -165,10 +209,19 @@ module.exports = function(grunt) {
 	// end Grunt task config
 
 	// Load task dependencies
-	require('load-grunt-tasks')(grunt);
+	grunt.loadNpmTasks('grunt-autoprefixer');
+	grunt.loadNpmTasks('grunt-browserify');
+	grunt.loadNpmTasks('grunt-include-replace');
+	grunt.loadNpmTasks('grunt-contrib-concat');
+	grunt.loadNpmTasks('grunt-contrib-connect');
+	grunt.loadNpmTasks('grunt-contrib-copy');
+	grunt.loadNpmTasks('grunt-contrib-jshint');
+	grunt.loadNpmTasks('grunt-contrib-sass');
+	grunt.loadNpmTasks('grunt-contrib-watch');
+
 
 	// Register custom tasks
-	grunt.registerTask('build', ['includereplace', 'jshint', 'browserify2', 'concat', 'sass']);
+	grunt.registerTask('build', ['includereplace', 'sass', 'autoprefixer', 'concat', 'jshint', 'browserify']);
 	grunt.registerTask('run', ['build', 'connect', 'watch']);
 
 };

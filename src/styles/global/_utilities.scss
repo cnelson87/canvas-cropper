@@ -1,17 +1,18 @@
-/*
-/* UTILITIES
-/*-----------------------------------------------------*/
+//
+// UTILITIES
+// -----------------------------------------------------
+
 
 /**
-/*	general styles
+/*	General styles
 /**/
 
 html.no-js .hide-no-js {display: none;}
 html.js-enabled .hide-js-enabled {display: none;}
 
-big, .big {font-size: 1.2em;}
+big, .big {font-size: 16px;}
 
-small, .small, .note {font-size: 0.9em;}
+small, .small, .note {font-size: 10px;}
 
 .alert, .error, .important, .required {
 	color: $error-color;
@@ -20,13 +21,24 @@ small, .small, .note {font-size: 0.9em;}
 
 .clear {clear: both;}
 
-.offscreen {
-	position: fixed;
-	left: -9999px;
+.accelerate {
+	@include accelerate();
 }
 
-.float-right {float: right;}
-.float-left {float: left;}
+.clearfix {
+	@include clearfix();
+}
+
+.hidetext {
+	@include hidetext();
+}
+
+.offscreen {
+	@include offscreen();
+}
+
+.pull-right {float: right;}
+.pull-left {float: left;}
 
 .align-right {text-align: right;}
 .align-left {text-align: left;}
@@ -46,8 +58,6 @@ small, .small, .note {font-size: 0.9em;}
 	text-transform: none;
 }
 
-.first-line {font-size: 1.2em;}
-
 .lower {text-transform: lowercase;}
 
 .upper {text-transform: uppercase;}
@@ -56,11 +66,11 @@ small, .small, .note {font-size: 0.9em;}
 
 .strike {text-decoration: line-through;}
 
-/*** /general styles ***/
+/*** /General styles ***/
 
 
 /**
-/*	list styles
+/*	List styles
 /**/
 
 nav ul, nav ol {list-style: none;}
@@ -74,21 +84,21 @@ ol.upper-alpha {list-style: upper-alpha;}
 ol.lower-roman {list-style: lower-roman;}
 ol.upper-roman {list-style: upper-roman;}
 
-ul.plain-list, ol.plain-list {list-style: none;}
+ul.plain, ol.plain {list-style: none;}
 
 ul.inline, ol.inline {
 	list-style: none;
 	> li {
 		display: inline-block;
-		margin: 0 1em;
+		margin: 0 0.5em;
 	}
 }
 
-/*** /list styles ***/
+/*** /List styles ***/
 
 
 /**
-/*	img styles
+/*	Img styles
 /**/
 
 img.block {
@@ -112,32 +122,4 @@ img.inset-right {
 	margin: 0 0 1.0em 20px;
 }
 
-/* generic img classes, no inherent style */
-img.icon {}
-img.thumb {}
-img.minithumb {}
-img.micro-thm {}
-
-/*** /img styles ***/
-
-
-/**
-/*	link styles
-/**/
-
-
-
-
-
-/*** /link styles ***/
-
-
-/**
-/*	misc styles
-/**/
-
-
-
-
-
-/*** /misc styles ***/
+/*** /Img styles ***/

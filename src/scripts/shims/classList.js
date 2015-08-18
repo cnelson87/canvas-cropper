@@ -15,7 +15,7 @@ if (!("classList" in document.documentElement) && Object.defineProperty && typeo
  
 					fn(classes, index, value);
 					self.className = classes.join(" ");
-				}
+				};
 			}
  
 			var ret = {

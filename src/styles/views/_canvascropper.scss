@@ -1,6 +1,6 @@
-
-/* CANVAS CROPPER
-/*-------------------------------------------------------*/
+//
+// CANVAS CROPPER
+// -----------------------------------------------------
 
 .canvas-cropper {
 
@@ -32,6 +32,12 @@
 		background: #fff;
 		border: 5px solid #999;
 		padding: 20px 10px;
+		position: relative;
+	}
+
+	.canvas-export {
+		clear: both;
+		margin-bottom: 20px;
 		position: relative;
 	}
 
