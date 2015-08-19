@@ -7,12 +7,11 @@
 /*	General styles
 /**/
 
-html.no-js .hide-no-js {display: none;}
-html.js-enabled .hide-js-enabled {display: none;}
+html.js .hide-js-enabled {display: none;}
 
-big, .big {font-size: 16px;}
+big, .big {font-size: 1.2em;}
 
-small, .small, .note {font-size: 10px;}
+small, .small, .note {font-size: 0.9em;}
 
 .alert, .error, .important, .required {
 	color: $error-color;
